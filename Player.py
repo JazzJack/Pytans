@@ -5,9 +5,10 @@ from __future__ import division, print_function
 from rules import Character
 
 class Player:
-    def __init__(self, name, character):
+    def __init__(self, name, character, arena):
         self.name = name
         self.character = character
+        self.arena = arena
 
     def doInitiative(self):
         self.character.doInitiative()

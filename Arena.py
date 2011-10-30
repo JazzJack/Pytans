@@ -33,7 +33,7 @@ arena.addTeam("red", [char2])
 # Create a Player for each character
 players = []
 for character in arena.getCharacters():
-    players.append("Player of "+character.name,Player(character))
+    players.append("Player of "+character.name,Player(character),arena)
 # Create a combat
 combat = Combat(arena, players)
 # fight till the death of one team
