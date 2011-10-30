@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Arsenal>
-    <Waffe id="Faust"/>
+    <Waffe id="Faust" schaerfe="3"/>
 
-    <Waffe id="Gladius" WW="10" minST="10" schaerfe="6" handling="0">
+    <Waffe id="Gladius" WW="10" minST="10" schaerfe="6">
         <Talent>Nahkampf.Schwerter</Talent>
         <Gewicht unit="kg">1.2</Gewicht>
     </Waffe>
 
-    <Waffe id="Langschwert" WW="12" minST="12" schaerfe="6" handling="0">
+    <Waffe id="Langschwert" WW="12" minST="12" schaerfe="6">
         <Talent>Nahkampf.Schwerter</Talent>
         <Gewicht unit="kg">2.0</Gewicht>
     </Waffe>
 
-    <Waffe id="Degen" WW="8" minST="8" schaerfe="6" handling="0">
+    <Waffe id="Degen" WW="8" minST="8" schaerfe="6">
         <Talent>Nahkampf.Schwerter</Talent>
         <Gewicht unit="kg">0.8</Gewicht>
     </Waffe>
