@@ -1,13 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8
 from __future__ import division, print_function
-from rules import Attributes, getEmptySkillTree
+from rules import Attributes, defaultSkillTree
 import rules
 from rules.Attributes import getDefaultAttributes
 from rules.Dicing import roll, getNumberOfSuccesses, isSuccessful
 import xml.etree.ElementTree as ElementTree
 import rules.Race as Race
 from rules.Skilltree import recursiveSkillAdd
+import copy
 
 
 class Character(object):
@@ -93,7 +94,7 @@ def readCharacterFromXML(filename):
             import warnings
             warnings.warn("Unknown Vantage '%s'"%vantageName)
     # Skills
-    char.skills = getEmptySkillTree()
+    char.skills = copy.deepcopy(defaultSkillTree)
     recursiveSkillAdd(char.skills, xChar.find("Fertigkeiten"))
     return char
 
