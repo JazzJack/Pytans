@@ -24,9 +24,25 @@ attributes = {
     "CH" : 8
 }
 
+class Attributes(dict):
+    def __init__(self, **kwargs):
+        dict.__init__(self, attributes, **kwargs)
+        self.mods = []
+
+    def addModDict(self, mod):
+        self.mods.append(mod)
+
+    def __getitem__(self, item):
+        mod = 0
+        for m in self.mods :
+            if item in m:
+                mod += m[item]
+        return dict.__getitem__(self, item) + mod
+
+
 
 def getDefaultAttributes() :
-    return dict(attributes)
+    return Attributes()
 
 
 def getModificator(value):

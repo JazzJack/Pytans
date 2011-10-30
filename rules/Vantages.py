@@ -9,6 +9,7 @@ class Vantage(object):
     def __init__(self, name, costs = 0):
         self.name = name
         self.costs = costs
+        self.mods = {}
 
     def __repr__(self):
         if self.costs > 0 :
@@ -29,9 +30,11 @@ def readVantagesFromFile(filename):
     xDisadvantages = none2Empty(xVantages.findall("Nachteil"))
     for xVantage in xAdvantages + xDisadvantages:
         vantageName = xVantage.get("id")
-        vantageCost = xVantage.get("kosten", "0")
+        vantageCost = xVantage.get("kosten", 0)
         if vantageName is not None:
             vantage = Vantage(vantageName, int(vantageCost))
+            for attMod in none2Empty(xVantage.findall("Attributsmod")) :
+                vantage.mods[attMod.get("attr")] = int(attMod.get("mod", 0))
             vantages[vantageName] = vantage
     return vantages
 

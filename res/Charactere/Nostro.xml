@@ -23,7 +23,7 @@
         <Schnelligkeit value="13"/>
         <Intelligenz value="9"/>
         <Intuition value="12"/>
-        <Willenskraft value="10"/>
+        <Willenskraft value="9"/>
         <Charisma value="9"/>
     </Attribute>
 
@@ -32,12 +32,13 @@
         <Größe unit="cm">187</Größe>
     </Eigenschaften>
 
-    <Vorteile>
+    <Teile>
         <Vorteil id="Untrügliches Gefühl"/>
         <Vorteil id="Von Natur aus breite Schultern"/>
-        <Vorteil id="Geschickt"/>
+        <Vorteil id="Naturtalent"/>
         <Vorteil id="Natürliche Stärke"/>
-    </Vorteile>
+        <Vorteil id="Raffiniert"/>
+    </Teile>
 
     <Sonderfertigkeiten>
         <Sonderfertigkeit id="Hart im Nehmen"/>
