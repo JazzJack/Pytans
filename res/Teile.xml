@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Teile>
+    <Vorteil id="Von Natur aus breite Schultern" kosten="55">
+        <Attributsmod attr="KO" mod="+1"/>
+    </Vorteil>
+    <Vorteil id="Massiver Körper" kosten="150">
+        <Attributsmod attr="KO" mod="+2"/>
+    </Vorteil>
+    <Vorteil id="Natürliche Stärke" kosten="55">
+        <Attributsmod attr="ST" mod="+1"/>
+    </Vorteil>
+    <Vorteil id="Sohn des Atlas" kosten="150">
+        <Attributsmod attr="ST" mod="+2"/>
+    </Vorteil>
+    <Vorteil id="Naturtalent" kosten="55">
+        <Attributsmod attr="GE" mod="+1"/>
+    </Vorteil>
+    <Vorteil id="Geschick der Götter" kosten="150">
+        <Attributsmod attr="GE" mod="+2"/>
+    </Vorteil>
+    <Vorteil id="Blitzschnell" kosten="55">
+        <Attributsmod attr="SN" mod="+1"/>
+    </Vorteil>
+    <Vorteil id="Kometenhafte Schnelligkeit" kosten="150">
+        <Attributsmod attr="SN" mod="+2"/>
+    </Vorteil>
+    <Vorteil id="Raffiniert" kosten="55">
+        <Attributsmod attr="IQ" mod="+1"/>
+    </Vorteil>
+    <Vorteil id="Genial" kosten="150">
+        <Attributsmod attr="IQ" mod="+2"/>
+    </Vorteil>
+    <Vorteil id="Untrügliches Gefühl" kosten="55">
+        <Attributsmod attr="IN" mod="+1"/>
+    </Vorteil>
+    <Vorteil id="Der sechste Sinn" kosten="150">
+        <Attributsmod attr="IN" mod="+2"/>
+    </Vorteil>
+    <Vorteil id="Willensstark" kosten="55">
+        <Attributsmod attr="WK" mod="+1"/>
+    </Vorteil>
+    <Vorteil id="Der unbrechbare Wille" kosten="150">
+        <Attributsmod attr="WK" mod="+2"/>
+    </Vorteil>
+    <Vorteil id="Charismatisch" kosten="55">
+        <Attributsmod attr="CH" mod="+1"/>
+    </Vorteil>
+    <Vorteil id="Personifizierte Sympathie" kosten="150">
+        <Attributsmod attr="CH" mod="+2"/>
+    </Vorteil>
+
+    <Nachteil id="Natürliche Schwäche" kosten="-50">
+        <Attributsmod attr="ST" mod="-1"/>
+    </Nachteil>
+    <Nachteil id="Von Natur aus Schmächtig" kosten="-50">
+        <Attributsmod attr="KO" mod="-1"/>
+    </Nachteil>
+    <Nachteil id="Zwei linke Hände" kosten="-50">
+        <Attributsmod attr="GE" mod="-1"/>
+    </Nachteil>
+    <Nachteil id="Langsam" kosten="-50">
+        <Attributsmod attr="SN" mod="-1"/>
+    </Nachteil>
+    <Nachteil id="Einfältig" kosten="-50">
+        <Attributsmod attr="IQ" mod="-1"/>
+    </Nachteil>
+    <Nachteil id="Gefühlsschwach" kosten="-50">
+        <Attributsmod attr="IN" mod="-1"/>
+    </Nachteil>
+    <Nachteil id="Willensschwach" kosten="-50">
+        <Attributsmod attr="WK" mod="-1"/>
+    </Nachteil>
+    <Nachteil id="Uncharismatisch" kosten="-50">
+        <Attributsmod attr="CH" mod="-1"/>
+    </Nachteil>
+
+</Teile>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Character>
+    <Name>Nostro Brogar'Rak</Name>
+    <Rasse>Worg</Rasse>
+
+    <Beschreibung>
+        <Augenfarbe>Orange</Augenfarbe>
+        <Haarfarbe>Schwarz/Dunkelgrau</Haarfarbe>
+        <Geburtstag>unknown</Geburtstag>
+        <Alter>19</Alter>
+        <Geschlecht>Männlich</Geschlecht>
+    </Beschreibung>
+
+    <Geschichte>
+        <Abenteuer xpGain="4000">Erschaffung</Abenteuer>
+        <Abenteuer xpGain="40">Angriff der Wildzwerge</Abenteuer>
+    </Geschichte>
+
+    <Attribute>
+        <Stärke value="10"/>
+        <Konstitution value="10"/>
+        <Geschick value="10"/>
+        <Schnelligkeit value="13"/>
+        <Intelligenz value="9"/>
+        <Intuition value="12"/>
+        <Willenskraft value="10"/>
+        <Charisma value="9"/>
+    </Attribute>
+
+    <Eigenschaften>
+        <Gewicht unit="kg">87</Gewicht>
+        <Größe unit="cm">187</Größe>
+    </Eigenschaften>
+
+    <Vorteile>
+        <Vorteil id="Untrügliches Gefühl"/>
+        <Vorteil id="Von Natur aus breite Schultern"/>
+        <Vorteil id="Geschickt"/>
+        <Vorteil id="Natürliche Stärke"/>
+    </Vorteile>
+
+    <Sonderfertigkeiten>
+        <Sonderfertigkeit id="Hart im Nehmen"/>
+        <Sonderfertigkeit id="Tierempathie"/>
+    </Sonderfertigkeiten>
+
+    <Fertigkeiten>
+        <Fertigkeit id="Körperbeherrschung" value="4">
+            <Fertigkeit id="Athletik" value="8"/>
+            <Fertigkeit id="Akrobatik" value="3"/>
+            <Fertigkeit id="Heimlichkeit" value="7"/>
+            <Fertigkeit id="Klettern" value="4"/>
+            <Fertigkeit id="Schwimmen" value="1"/>
+        </Fertigkeit>
+        <Fertigkeit id="Handwerk" value="2">
+            <Fertigkeit id="Kochen" value="1"/>
+            <Fertigkeit id="Lederverarbeitung" value="7"/>
+        </Fertigkeit>
+        <Fertigkeit id="Steuern" value="1">
+            <Fertigkeit id="Tiere" value="5"/>
+        </Fertigkeit>
+        <Fertigkeit id="Wahrnehmung" value="5">
+            <Fertigkeit id="Hören" value="6"/>
+            <Fertigkeit id="Riechen/Schmecken" value="10"/>
+            <Fertigkeit id="Sehen" value="5"/>
+            <Fertigkeit id="Tasten" value="3"/>
+            <Fertigkeit id="Orientieren" value="6"/>
+        </Fertigkeit>
+        <Fertigkeit id="Empathie" value="3">
+            <Fertigkeit id="Emotionen erkennen" value="6"/>
+            <Fertigkeit id="Entlarven" value="1"/>
+            <Fertigkeit id="Wesen erkennen" value="2"/>
+        </Fertigkeit>
+        <Fertigkeit id="Manipulation" value="2">
+            <Fertigkeit id="Pädagogik" value="2"/>
+            <Fertigkeit id="Beeinflussen" value="1"/>
+            <Fertigkeit id="Führen" value="6"/>
+            <Fertigkeit id="Schauspielern" value="1"/>
+            <Fertigkeit id="Verhandeln" value="1"/>
+        </Fertigkeit>
+        <Fertigkeit id="Naturkunde" value="4">
+            <Fertigkeit id="Ethnologie" value="1"/>
+            <Fertigkeit id="Zoologie" value="8"/>
+            <Fertigkeit id="Botanik" value="6"/>
+            <Fertigkeit id="Astronomie" value="1"/>
+            <Fertigkeit id="Meterologie" value="4"/>
+        </Fertigkeit>
+        <Fertigkeit id="Wissenschaft" value="1">
+            <Fertigkeit id="Mathematik" value="1"/>
+            <Fertigkeit id="Kriegskunst" value="5"/>
+        </Fertigkeit>
+        <Fertigkeit id="Kulturwissen" value="2">
+            <Fertigkeit id="Gebräuche" value="4"/>
+            <Fertigkeit id="Theologie" value="1"/>
+        </Fertigkeit>
+        <Fertigkeit id="Nahkampf" value="4">
+            <Fertigkeit id="Ausweichen" value="6"/>
+            <Fertigkeit id="Handgemenge" value="8"/>
+            <Fertigkeit id="Messer" value="6"/>
+            <Fertigkeit id="Hiebwaffen" value="1"/>
+            <Fertigkeit id="Schlagwaffen" value="1"/>
+            <Fertigkeit id="Schwerter" value="2"/>
+            <Fertigkeit id="Schilde" value="4"/>
+            <Fertigkeit id="Stangenwaffen" value="5"/>
+        </Fertigkeit>
+        <Fertigkeit id="Fernkampf" value="3">
+            <Fertigkeit id="Wurfwaffen" value="6"/>
+        </Fertigkeit>
+    </Fertigkeiten>
+
+    <Verfassung>
+        <Erschöpfung value="0"/>
+        <Wunden>
+            <Kopf value="0"/>
+            <LinkerArm value="0"/>
+            <RechterArm value="0"/>
+            <Torso value="0"/>
+            <Beine value="0"/>
+        </Wunden>
+    </Verfassung>
+
+    <Ausrüstung>
+        <Rüstung name="Lederjacke" RS="3">
+            <Gewicht unit="kg" value="4"/>
+            <Abdeckung torso="3"/>
+        </Rüstung>
+        <Rüstung name="Armschienen" RS="4" SR="1">
+            <Gewicht unit="kg" value="1"/>
+            <Abdeckung rArm="1" lArm="1"/>
+        </Rüstung>
+        <Waffe name="Klauen" DK="H" Shärfe="6"/>
+        <Waffe name="Knochenschlagringe" DK="H" Shärfe="5" minST="2" WW="2">
+            <Gewicht unit="kg" value="0.1"/>
+        </Waffe>
+        <Waffe name="Dolch" DK="H" Shärfe="6" minST="3" WW="3">
+            <Gewicht unit="kg" value="0.2"/>
+        </Waffe>
+    </Ausrüstung>
+
+    <inventory>
+        <!-- maybe for future use-->
+    </inventory>
+</Character>

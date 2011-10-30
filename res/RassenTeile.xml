@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RassenTeile>
+    <Vorteil id="Balanceschwanz" kosten="40"/>
+    <Vorteil id="Klauenbewährte Füße" kosten="20"/>
+    <Vorteil id="Raubtiermaul" kosten="25"/>
+    <Vorteil id="Dämmerungssicht" kosten="30"/>
+    <Vorteil id="gutes Gehör" kosten="40"/>
+    <Vorteil id="Hundenase" kosten="100"/>
+    <Vorteil id="Sprungbeine" kosten="54"/>
+
+    <Nachteil id="hoher Schwerpunkt" kosten="-6"/>
+    <Nachteil id="Klauenhände" kosten="-54"/>
+    <Nachteil id="Raubtiergeruch" kosten="-15"/>
+    <Nachteil id="Olfaktorische Körpersprache" kosten="0"/>
+    <Nachteil id="Fremdartig" kosten="-35"/>
+    <Nachteil id="Fleischfresser" kosten="-10"/>
+</RassenTeile>
