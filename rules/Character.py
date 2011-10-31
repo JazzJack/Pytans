@@ -16,11 +16,22 @@ class Character(object):
     def __init__(self, name):
         self.name = name
         self.attributes = getDefaultAttributes()
+        self.skills = copy.deepcopy(defaultSkillTree)
         self.vantages = []
         self.WT = 8
         self.RS = 0
         self.SR = 0
         self.exhaustion = 0
+        self.AP = 0
+        self.wounds = 0
+
+    def rollAttribute(self, att, diff, minSuccesses = 0):
+        assert att in self.attributes
+        r = roll(self.attributes[att])
+        if minSuccesses :
+            return isSuccessful(r, diff, minSuccesses)
+        else :
+            return getNumberOfSuccesses(r, diff)
 
     def soak(self, damage, sharpness):
         """
@@ -31,9 +42,29 @@ class Character(object):
         diff = sharpness - self.SR
         while damage > 0 :
             wounds += 1
-            r = roll(self.attributes["KO"])
-            damage -= getNumberOfSuccesses(r, diff)
+            damage -= self.rollAttribute("KO", diff)
         return max(0, wounds)
+
+    def doInitiative(self, diff):
+        self.AP = self.rollAttribute("IN", diff)
+
+    def isAlive(self):
+        return self.exhaustion < self.attributes["KO"] and self.wounds < 6
+
+    def getPoolSize(self, skill):
+        assert skill in self.skills
+        # todo: "Hart im Nehmen"
+        return max(1, self.skills[skill].summed() - self.exhaustion)
+
+    def rollSkill(self, skill, diff, minSuccesses = 0, att=None) :
+        assert skill in self.skills
+        if att is not None and att in self.attributes:
+            diff = max(1, diff + Attributes.getModificator(self.attributes["att"]))
+        r = roll(self.getPoolSize(skill))
+        if minSuccesses :
+            return isSuccessful(r, diff, minSuccesses)
+        else:
+            return getNumberOfSuccesses(r, diff)
 
     def attack(self, weapon, maneuver):
         """
@@ -94,7 +125,6 @@ def readCharacterFromXML(filename):
             import warnings
             warnings.warn("Unknown Vantage '%s'"%vantageName)
     # Skills
-    char.skills = copy.deepcopy(defaultSkillTree)
     recursiveSkillAdd(char.skills, xChar.find("Fertigkeiten"))
     return char
 
