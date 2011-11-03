@@ -60,10 +60,12 @@ class Maneuver(object):
     def getActionPoints(self, character, weapon, options):
         variables = self.createVarDict(character, weapon, options)
         AP = eval(self.actionPoints, variables)
+        # todo: does not affect weaponless maneuvers
         if variables["leicht"] :
             AP -= 1
         if variables["schwer"] :
             AP += 1
+        # todo: does not count for Wegzucken
         if self.level >= 3 :
             AP -= 1
         return AP

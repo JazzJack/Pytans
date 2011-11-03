@@ -9,8 +9,8 @@ class Player:
         self.name = name
         self.character = character
 
-    def doInitiative(self):
-        self.character.doInitiative()
+    def doInitiative(self, diff = 6):
+        self.character.doInitiative(diff)
 
     def wait(self):
         return 0

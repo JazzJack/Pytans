@@ -17,7 +17,7 @@ class Combat:
         heapq.heapify(succession)
         # Call the players
         while len(succession):
-            playerTuple = heapq.heappop()
+            playerTuple = heapq.heappop(succession)
             # Option to wait
             if playerTuple[2]:
                 waittime = playerTuple[1].wait()
