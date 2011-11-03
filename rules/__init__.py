@@ -22,7 +22,6 @@ raceVantages = readVantagesFromFile(os.path.join(basedir, "res/RassenTeile.xml")
 from rules.Race import readAllRaces
 races = readAllRaces(os.path.join(basedir, "res/Rassen"))
 
-
 #################### read Skilltree ############################################
 from rules.Skilltree import readSkillTreeFromXML
 defaultSkillTree = readSkillTreeFromXML(os.path.join(basedir, "res/SkillTree.xml"))
@@ -30,6 +29,18 @@ defaultSkillTree = readSkillTreeFromXML(os.path.join(basedir, "res/SkillTree.xml
 #################### read Arsenal ##############################################
 from rules.Weapons import readWeaponsFromXML
 weapons = readWeaponsFromXML(os.path.join(basedir, "res/Arsenal.xml"))
+
+#################### read Maneuvers ##############################################
+from rules.Maneuvers import readManeuversFromXML
+actions, reactions = readManeuversFromXML(os.path.join(basedir, "res/Manöver.xml"))
+maneuvers = dict(actions)
+maneuvers.update(reactions)
+
+#### TEMP ####
+from rules.Character import readCharacterFromXML
+nostro = readCharacterFromXML(os.path.join(basedir, "res/Charactere/Nostro.xml"))
+hieb = actions["Hieb"]
+faust = weapons["Faust"]
 
 # conversion for interactive console
 def u(s):

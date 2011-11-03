@@ -3,6 +3,7 @@
 from __future__ import division, print_function, unicode_literals
 import xml.etree.ElementTree as ElementTree
 from rules import defaultSkillTree
+from rules.Utils import none2Empty
 
 weightUnits = {"kg" : 1.,
                "g"  : 0.001,
@@ -15,7 +16,7 @@ derivedAttributes = {"kopflastig" : "WW > minST",
 
 class Weapon(dict):
     def __init__(self, name, **kwargs):
-        defaultValues = {"WT" : "Nahkampf.Handgemenge"}
+        defaultValues = {"Waffentalent" : "Nahkampf.Handgemenge"}
         dict.__init__(self, defaultValues, **kwargs)
         self.name = name
         self.weight = 0
@@ -50,13 +51,13 @@ def readWeaponsFromXML(filename):
     tree = ElementTree.parse(filename)
     xArsenal= tree.getroot()
     weapons = {}
-    for xWeapon in xArsenal.findall("Waffe"):
+    for xWeapon in none2Empty(xArsenal.findall("Waffe")):
         # get weapon name
         weaponName = xWeapon.get("id")
         weapon = Weapon(weaponName)
         # get weapon attributes
         for a in weaponAttributes:
-            weapon[a] = eval(xWeapon.get(a, 0))
+            weapon[a] = eval(xWeapon.get(a, "0"))
         # get weapon weight
         weapon.weight = getWeightInKg(xWeapon)
         # get weapon skill
@@ -64,7 +65,7 @@ def readWeaponsFromXML(filename):
         if xWT is not None:
             WT = xWT.text
             if WT in defaultSkillTree:
-                weapon["WT"] = WT
+                weapon["Waffentalent"] = WT
             else :
                 import warnings
                 warnings.warn(("Invalid WeaponSkill %s for %s"%(WT, weapon)).encode("utf-8"))

@@ -53,7 +53,7 @@ class Character(object):
 
     def getSkillsDict(self):
         skillsDict = {}
-        for s, v in self.skills :
+        for s, v in self.skills.items() :
             skillsDict[s] = self.getPoolSize(s)
         return skillsDict
 
