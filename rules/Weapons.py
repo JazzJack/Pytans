@@ -4,29 +4,36 @@ from __future__ import division, print_function
 import xml.etree.ElementTree as ElementTree
 from rules import defaultSkillTree
 
-weaponAttributes = ["WW", "minST", "schaerfe", "handling"]
 weightUnits = {"kg" : 1.,
                "g"  : 0.001,
                "t"  : 1000}
 
-class Weapon(object):
-    def __init__(self, name):
+weaponAttributes = ["WW", "minST", "schaerfe", "handling"]
+derivedAttributes = {"kopflastig" : "WW > minST",
+                     "leicht" : "ST >= 2*WW",
+                     "schwer" : "ST < WW"}
+
+class Weapon(dict):
+    def __init__(self, name, **kwargs):
+        defaultValues = {"WT" : "Nahkampf.Handgemenge"}
+        dict.__init__(self, defaultValues, **kwargs)
         self.name = name
-        self.weaponSkill = "Nahkampf.Handgemenge"
+        self.weight = 0
 
     def __repr__(self):
         r = "<Waffe " + self.name + ": "
-        for a in dir(self):
-            v = self.__getattribute__(a)
-            if type(v) is int:
-                r += "%s=%d, "%(a, v)
-            elif type(v) is float:
-                r += "%s=%.2f, "%(a, v)
+        for a, v in self.items():
+            r += a + "=" + v + ", "
         return (r[:-2] + ">").encode("utf-8")
 
-    @property
-    def kopflastig(self):
-        return self.WW > self.minST
+    def getVarDict(self, charValues):
+        values = dict(self)
+        values.update(charValues)
+        result = dict(self)
+        for d, v in derivedAttributes:
+            result[d] = eval(v, values)
+        return result
+
 
 
 def getWeightInKg(xTag):
@@ -49,7 +56,7 @@ def readWeaponsFromXML(filename):
         weapon = Weapon(weaponName)
         for a in weaponAttributes:
             weapon.__setattr__(a, int(xWeapon.get(a, 0)))
-        weapon.gewicht = getWeightInKg(xWeapon)
+        weapon.weight = getWeightInKg(xWeapon)
         xWT = xWeapon.find("Talent")
         if xWT is not None:
             WT = xWT.text
