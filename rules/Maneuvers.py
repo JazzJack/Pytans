@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8
 from __future__ import division, print_function
+from rules.Dicing import roll, getNumberOfSuccesses
+from rules.Weapons import weaponAttributes
 
 
 def createValueDict(character):
@@ -15,29 +17,52 @@ def createValueDict(character):
     return valDict
 
 class Maneuver(object):
-    def __init__(self, actionPoints = 5, baseDifficulty = 8, impetus = "ST + WW", level = 0):
+    def __init__(self, actionPoints = "0", baseDifficulty = "0", impetus = "0", pool = "0", level = 0, options = None):
         self.level = level
-        self._baseDifficulty = baseDifficulty
-        self._actionPoints = actionPoints
+        self.baseDifficulty = baseDifficulty
+        self.actionPoints = actionPoints
         self.impetus = impetus
+        self.pool = pool
+        self.options = options
 
-    def getImpetus(self, character, weapon, impetusSuccesses):
-        values = createValueDict(character)
-        values.update(createValueDict(weapon))
-        impetus = eval(self.impetus, values)
+    def createVarDict(self, char, weapon, options = None):
+        variables = {}
+        if options is not None:
+            self.validateOptions(options)
+            variables.update(options)
+        if weapon is not None:
+            variables["WT"] = char.getPoolSize(weapon.weaponSkill)
+            variables.update(weapon.getVarDict(char))
+        variables.update(char.attributes)
+        variables.update(char.getSkillsDict())
+
+    def roll(self, char, weapon, options = None):
+        variables = self.createVarDict(char, weapon, options)
+        difficulty = eval(self.baseDifficulty, variables) + weapon.handling
+        pool = eval(self.pool, variables)
+        r = roll(pool)
+        return getNumberOfSuccesses(r, difficulty)
+
+    def validateOptions(self, options):
+        pass
+
+    def getDamage(self, character, weapon, options, successes):
+        variables = self.createVarDict(character, weapon, options)
+
+        impetus = eval(self.impetus, variables)
         if self.level >= 2 :
             impetus += impetusSuccesses * 2
         return impetus
 
     @property
-    def baseDifficulty(self):
+    def difficulty(self):
         if self.level < 1 :
             return self._baseDifficulty
         else:
             return self._baseDifficulty - 1
 
-    @baseDifficulty.setter
-    def baseDifficulty(self, bd):
+    @difficulty.setter
+    def difficulty(self, bd):
         self._baseDifficulty = bd
 
     @property
@@ -47,13 +72,3 @@ class Maneuver(object):
         else :
             return self._actionPoints - 1
 
-
-Hieb = Maneuver(6, 6)
-Hieb1 = Maneuver(6, 6, level = 1)
-Hieb2 = Maneuver(6, 6, level = 2)
-Hieb3 = Maneuver(6, 6, level = 3)
-
-Stich = Maneuver(baseDifficulty=7, impetus="ST")
-Stich1 = Maneuver(baseDifficulty=7, impetus="ST", level = 1)
-Stich2 = Maneuver(baseDifficulty=7, impetus="ST", level = 2)
-Stich3 = Maneuver(baseDifficulty=7, impetus="ST", level = 3)

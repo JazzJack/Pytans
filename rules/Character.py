@@ -51,6 +51,12 @@ class Character(object):
     def isAlive(self):
         return self.exhaustion < self.attributes["KO"] and self.wounds < 6
 
+    def getSkillsDict(self):
+        skillsDict = {}
+        for s, v in self.skills :
+            skillsDict[s] = self.getPoolSize(s)
+        return skillsDict
+
     def getPoolSize(self, skill):
         assert skill in self.skills
         # todo: "Hart im Nehmen"
@@ -71,7 +77,7 @@ class Character(object):
         Macht den Angriffswurf für den Charakter und gibt die Anzahl der Erfolge zurück
         """
         poolsize = max(1, self.WT - self.exhaustion)
-        diff = maneuver.baseDifficulty + weapon.handling
+        diff = maneuver.difficulty + weapon.handling
         r = roll(poolsize)
         return getNumberOfSuccesses(r, diff)
 
