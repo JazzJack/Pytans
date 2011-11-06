@@ -3,7 +3,8 @@
 from __future__ import division, print_function
 from rules import Attributes, defaultSkillTree
 import rules
-from rules.Attributes import getDefaultAttributes
+from rules.Announcement import Announcement, Action
+from rules.Attributes import getDefaultAttributes, getModificator
 from rules.Dicing import roll, getNumberOfSuccesses, isSuccessful
 import xml.etree.ElementTree as ElementTree
 import rules.Race as Race
@@ -72,24 +73,18 @@ class Character(object):
         else:
             return getNumberOfSuccesses(r, diff)
 
-    def attack(self, weapon, maneuver):
+    def attack(self, weapon, maneuver, target, options = None):
         """
-        Macht den Angriffswurf für den Charakter und gibt die Anzahl der Erfolge zurück
+        Erzeugt ein Ansageobjekt und reduziert die AP
         """
-        poolsize = max(1, self.WT - self.exhaustion)
-        diff = maneuver.difficulty + weapon.handling
-        r = roll(poolsize)
-        return getNumberOfSuccesses(r, diff)
+        attack = Action(self, maneuver, weapon, options)
+        self.AP -= maneuver.getActionPoints(self, weapon, options)
+        assert self.AP >= 0
+        announcement = Announcement(attack, target)
+        return announcement
 
-    def evaluateAttack(self, successes, weapon, maneuver, contraSuccesses = 0):
-        # subtract all the contraSuccesses
-        successes -= contraSuccesses
-        if successes <= 0:
-            return 0, 0       # Attack failed
-        sharpness = min(weapon.schaerfe, successes * 2)
-        successes = max(0, successes - (weapon.schaerfe+1)//2)
-        impetus = maneuver.getImpetus(self, weapon, successes)
-        return impetus, sharpness
+    def gainAP(self):
+        self.AP += 3 + getModificator(self.attributes["SN"])
 
     def __str__(self):
         indent = "  "
