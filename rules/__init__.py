@@ -32,7 +32,7 @@ weapons = readWeaponsFromXML(os.path.join(basedir, "res/Arsenal.xml"))
 
 #################### read Maneuvers ##############################################
 from rules.Maneuvers import readManeuversFromXML
-maneuvers = readManeuversFromXML(os.path.join(basedir, "res/Manöver.xml"))
+maneuvers = readManeuversFromXML(os.path.join(basedir, "res/Manoever.xml"))
 
 
 #### TEMP ####

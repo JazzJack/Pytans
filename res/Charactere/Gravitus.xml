@@ -21,7 +21,7 @@
     <Fertigkeiten>
         <Fertigkeit id="Nahkampf" value="3">
             <Fertigkeit id="Schilde" value="4"/>
-            <Fertigkeit id="Hiebwaffen" value="6"/>
+            <Fertigkeit id="Schwerter" value="6"/>
         </Fertigkeit>
     </Fertigkeiten>
 

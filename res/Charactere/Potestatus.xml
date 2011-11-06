@@ -9,7 +9,7 @@
 
     <Attribute>
         <Stärke value="15"/>
-        <Konstitution value="11"/>
+        <Konstitution value="13"/>
         <Geschick value="11"/>
         <Schnelligkeit value="11"/>
         <Intelligenz value="11"/>
@@ -21,7 +21,7 @@
     <Fertigkeiten>
         <Fertigkeit id="Nahkampf" value="3">
             <Fertigkeit id="Ausweichen" value="4"/>
-            <Fertigkeit id="Hiebwaffen" value="6"/>
+            <Fertigkeit id="Schwerter" value="6"/>
         </Fertigkeit>
     </Fertigkeiten>
 

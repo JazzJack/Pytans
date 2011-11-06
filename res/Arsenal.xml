@@ -15,13 +15,30 @@
         <Gewicht unit="kg">1.2</Gewicht>
     </Waffe>
 
+    <Waffe id="Breitschwert" typ="Waffe" WW="11" minST="11" WS="6">
+        <Talent>Nahkampf.Schwerter</Talent>
+        <Gewicht unit="kg">1.5</Gewicht>
+    </Waffe>
+
     <Waffe id="Langschwert" typ="Waffe" WW="12" minST="12" WS="6">
         <Talent>Nahkampf.Schwerter</Talent>
         <Gewicht unit="kg">2.0</Gewicht>
     </Waffe>
 
+    <Waffe id="Anderthalbhänder" typ="Waffe" WW="15" minST="15" WS="6">
+        <Talent>Nahkampf.Schwerter</Talent>
+        <Gewicht unit="kg">3</Gewicht>
+    </Waffe>
+
+
     <Waffe id="Degen" typ="Waffe" WW="8" minST="8" WS="6">
         <Talent>Nahkampf.Schwerter</Talent>
         <Gewicht unit="kg">0.8</Gewicht>
     </Waffe>
+
+    <Waffe id="GestochenerDegen" typ="Waffe" WW="5" minST="5" WS="8">
+        <Talent>Nahkampf.Schwerter</Talent>
+        <Gewicht unit="kg">0.5</Gewicht>
+    </Waffe>
+
 </ZwitansArsenal>

@@ -10,6 +10,7 @@ import xml.etree.ElementTree as ElementTree
 import rules.Race as Race
 from rules.Skilltree import recursiveSkillAdd
 import copy
+from rules.Utils import none2Empty
 
 
 class Character(object):
@@ -44,13 +45,21 @@ class Character(object):
         while damage > 0 :
             wounds += 1
             damage -= self.rollAttribute("KO", diff)
-        return max(0, wounds)
+        wounds = max(0, wounds)
+        self.wounds += wounds
+        self.exhaustion += wounds
+        return wounds
 
     def doInitiative(self, diff):
         self.AP = self.rollAttribute("IN", diff)
 
     def isAlive(self):
         return self.exhaustion < self.attributes["KO"] and self.wounds < 6
+
+    def reset(self):
+        self.wounds = 0
+        self.exhaustion = 0
+        self.AP = 0
 
     def getSkillsDict(self):
         skillsDict = {}
@@ -118,7 +127,7 @@ def readCharacterFromXML(filename):
     for att in xChar.find("Attribute"):
         char.attributes[Attributes.mapping[att.tag]] = int(att.get("value"))
     # Vantages
-    for v in xChar.find("Teile") :
+    for v in none2Empty(xChar.find("Teile")) :
         vantageName = v.get("id")
         if vantageName in rules.vantages :
             char.addVantage(rules.vantages[vantageName])
