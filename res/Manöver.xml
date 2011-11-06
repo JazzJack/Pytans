@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KungFu>
-    <Aktionen>
-        <Manöver id="Hieb" AP="6" GS="6">
-            <Pool>WT</Pool>
-            <Wucht>ST + WW</Wucht>
-        </Manöver>
+<ZwitansManoever version="0.2">
+    <Muster id="Aktion" AP="0" GS="0" pool="WT" wucht="ST + wuchtTechnik">
+        <Set var="waffeLeicht" value="2*WW &lt;= ST"/>
+        <Set var="waffeSchwer" value="WW &gt; ST"/>
+        <Set var="shaerfe" value="min(WS, AQ*2)"/>
+        <Set var="AQ2" value="max(0, AQ - round(WS/2.))"/>
+        <Set var="wuchtTechnik" value="AQ2 * 2 if level &gt;= 2 else 0" />
+        <Mod var="AP" value="-(level&gt;=3)"/>
+        <Mod var="AP" value="+waffeSchwer"/>
+        <Mod var="AP" value="-waffeLeicht"/>
+        <Mod var="GS" value="-(level&gt;=1)"/>
+    </Muster>
 
-        <Manöver id="Stich" AP="5" GS="7">
-            <Pool>WT</Pool>
-            <Wucht>ST</Wucht>
-        </Manöver>
+    <Manoever id="Hieb" typ="Aktion" AP="6" GS="6"
+              wucht="ST + WW + wuchtTechnik"/>
 
-        <Manöver id="Wurf" AP="6" GS="7">
-            <Pool>WT</Pool>
-            <Wucht>ST + WW</Wucht>
-        </Manöver>
+    <Manoever id="Stich" typ="Aktion" AP="5" GS="7"/>
 
-        <Manöver id="Schuss" AP="7" GS="7">
-            <Pool>WT</Pool>
-            <Wucht>ST</Wucht>
-        </Manöver>
-    </Aktionen>
+    <Manoever id="Wurf" typ="Aktion" AP="6" GS="7"
+              wucht="ST + WW + wuchtTechnik"/>
 
-    <Reaktionen>
-        <Manöver id="Block" AP="4" GS="6">
-            <Pool>WT</Pool>
-            <Wucht>ST + WW</Wucht>
-        </Manöver>
+    <Manoever id="Schuss" typ="Aktion" AP="7" GS="7"/>
 
-        <Manöver id="Wegschlagen" AP="5" GS="7">
-            <Pool>WT</Pool>
-            <Wucht>ST + WW</Wucht>
-        </Manöver>
+    <Manoever id="Block" typ="Aktion" AP="4" GS="6"
+              wucht="ST + WW + wuchtTechnik"/>
 
-        <Manöver id="Ausweichen" AP="5" GS="6">
-            <Pool>Nahkampf.Ausweichen</Pool>
-        </Manöver>
+    <Manoever id="Wegschlagen" typ="Aktion" AP="5" GS="7"
+              wucht="ST + WW + wuchtTechnik"/>
 
-        <Manöver id="Wegzucken" AP="X" GS="7">
-            <Pool>X</Pool>
-            <Option name="X" type="int" bedingung="0 < X and X <= Nahkampf.Ausweichen"/>
-        </Manöver>
-    </Reaktionen>
-</KungFu>
+    <Manoever id="Ausweichen" AP="5" GS="6"
+              pool="Nahkampf.Ausweichen">
+        <Mod var="AP" value="-(level&gt;=3)"/>
+        <Mod var="GS" value="-(level&gt;=1)"/>
+    </Manoever>
+
+    <Manoever id="Wegzucken" AP="X" GS="7"
+              pool="X">
+        <Option name="X" type="int" bedingung="0 &lt; X and X &lt;= Nahkampf.Ausweichen"/>
+        <Mod var="GS" value="-(level&gt;=1)"/>
+    </Manoever>
+
+</ZwitansManoever>

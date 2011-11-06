@@ -10,8 +10,8 @@ weightUnits = {"kg" : 1.,
                "t"  : 1000}
 
 class Weapon(dict):
-    def __init__(self, name, attributes, **kwargs):
-        dict.__init__(self, attributes, **kwargs)
+    def __init__(self, name, **kwargs):
+        dict.__init__(self, (), **kwargs)
         self.name = name
         self.weight = 0
         self.weaponSkill = ""
@@ -19,13 +19,14 @@ class Weapon(dict):
     def __repr__(self):
         r = "<Waffe " + self.name + ": "
         for a, v in self.items():
-            r += a + "=" + v + ", "
+            r += a + "=" + str(v) + ", "
         return (r[:-2] + ">").encode("utf-8")
 
     def copy(self):
-        copy = Weapon(self.name, self)
+        copy = Weapon(self.name)
         copy.weight = self.weight
         copy.weaponSkill = self.weaponSkill
+        copy.update(self)
         return copy
 
 
@@ -49,13 +50,15 @@ def readWeaponFromXMLTag(tag, patterns):
     weaponType = weaponDict.pop("typ", "")
     if weaponType in patterns:
         weapon = patterns[weaponType].copy()
-        weapon.update(weaponDict)
         weapon.name = weaponName
     else:
-        weapon = Weapon(weaponName, weaponDict)
+        weapon = Weapon(weaponName)
         if weaponType != "" :
             import warnings
             warnings.warn("Unknown weapon type '%s' for %s!"%(weaponType, weaponName))
+    # add evaluated attributs
+    for a, v in weaponDict.items():
+        weapon[a] = eval(v)
     # get Weight
     weapon.weight = getWeightInKg(tag)
     # get weapon skill
@@ -63,7 +66,7 @@ def readWeaponFromXMLTag(tag, patterns):
     if xWT is not None:
         WT = xWT.text
         if WT in defaultSkillTree:
-            weapon["Waffentalent"] = WT
+            weapon.weaponSkill = WT
         else :
             import warnings
             warnings.warn(("Invalid WeaponSkill %s for %s"%(WT, weapon)).encode("utf-8"))

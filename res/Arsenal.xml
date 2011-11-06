@@ -3,24 +3,24 @@
     <!-- Ein Muster kann als eine Art Basisklasse für andere Waffen verwendet werden.
          Es definiert die Attribute und setzt Defaultwerte.
          Andere Waffen "erben" davon indem sie ihr "typ"-Attribut auf die entsprechende id setzen-->
-    <Muster id="Waffe" WW="0" minST="0" schaerfe="1" deckung="0" handling="0">
+    <Muster id="Waffe" WW="0" minST="0" WS="1" deckung="0" handling="0">
         <Talent>Nahkampf.Handgemenge</Talent>
         <Gewicht unit="kg">0</Gewicht>
     </Muster>
     
-    <Waffe id="Faust" typ="Waffe" schaerfe="3"/>
+    <Waffe id="Faust" typ="Waffe" WS="4"/>
     
-    <Waffe id="Gladius" typ="Waffe" WW="10" minST="10" schaerfe="6">
+    <Waffe id="Gladius" typ="Waffe" WW="10" minST="10" WS="6">
         <Talent>Nahkampf.Schwerter</Talent>
         <Gewicht unit="kg">1.2</Gewicht>
     </Waffe>
 
-    <Waffe id="Langschwert" typ="Waffe" WW="12" minST="12" schaerfe="6">
+    <Waffe id="Langschwert" typ="Waffe" WW="12" minST="12" WS="6">
         <Talent>Nahkampf.Schwerter</Talent>
         <Gewicht unit="kg">2.0</Gewicht>
     </Waffe>
 
-    <Waffe id="Degen" typ="Waffe" WW="8" minST="8" schaerfe="6">
+    <Waffe id="Degen" typ="Waffe" WW="8" minST="8" WS="6">
         <Talent>Nahkampf.Schwerter</Talent>
         <Gewicht unit="kg">0.8</Gewicht>
     </Waffe>
