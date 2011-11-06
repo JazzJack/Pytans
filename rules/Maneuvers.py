@@ -1,6 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8
-from __future__ import division, print_function
+from __future__ import division, print_function, unicode_literals
+from rules.Dicing import roll, getNumberOfSuccesses
+import xml.etree.ElementTree as ElementTree
+from rules.Utils import none2Empty
 
 
 def createValueDict(character):
@@ -15,45 +18,82 @@ def createValueDict(character):
     return valDict
 
 class Maneuver(object):
-    def __init__(self, actionPoints = 5, baseDifficulty = 8, impetus = "ST + WW", level = 0):
+    def __init__(self, name, actionPoints = "0", baseDifficulty = "0", impetus = "0", pool = "0", level = 0, options = None):
+        self.name = name
         self.level = level
-        self._baseDifficulty = baseDifficulty
-        self._actionPoints = actionPoints
+        self.baseDifficulty = baseDifficulty
+        self.actionPoints = actionPoints
         self.impetus = impetus
+        self.pool = pool
+        self.options = options
 
-    def getImpetus(self, character, weapon, impetusSuccesses):
-        values = createValueDict(character)
-        values.update(createValueDict(weapon))
-        impetus = eval(self.impetus, values)
+    def createVarDict(self, char, weapon, options = None):
+        variables = {}
+        if options is not None:
+            self.validateOptions(options)
+            variables.update(options)
+        if weapon is not None:
+            variables["WT"] = char.getPoolSize(weapon["Waffentalent"])
+            variables.update(weapon.getVarDict(char.attributes))
+        variables.update(char.attributes)
+        variables.update(char.getSkillsDict())
+        return variables
+
+    def roll(self, char, weapon, options = None):
+        variables = self.createVarDict(char, weapon, options)
+        difficulty = eval(self.baseDifficulty, variables) + weapon.handling
+        pool = eval(self.pool, variables)
+        r = roll(pool)
+        return getNumberOfSuccesses(r, difficulty)
+
+    def validateOptions(self, options):
+        # todo
+        pass
+
+    def getDamage(self, character, weapon, options, successes):
+        variables = self.createVarDict(character, weapon, options)
+        impetus = eval(self.impetus, variables)
         if self.level >= 2 :
-            impetus += impetusSuccesses * 2
+            impetus += successes * 2
         return impetus
 
-    @property
-    def baseDifficulty(self):
-        if self.level < 1 :
-            return self._baseDifficulty
-        else:
-            return self._baseDifficulty - 1
-
-    @baseDifficulty.setter
-    def baseDifficulty(self, bd):
-        self._baseDifficulty = bd
-
-    @property
-    def AP(self):
-        if self.level < 3:
-            return self._actionPoints
-        else :
-            return self._actionPoints - 1
+    def getActionPoints(self, character, weapon, options):
+        variables = self.createVarDict(character, weapon, options)
+        AP = eval(self.actionPoints, variables)
+        # todo: does not affect weaponless maneuvers
+        if variables["leicht"] :
+            AP -= 1
+        if variables["schwer"] :
+            AP += 1
+        # todo: does not count for Wegzucken
+        if self.level >= 3 :
+            AP -= 1
+        return AP
 
 
-Hieb = Maneuver(6, 6)
-Hieb1 = Maneuver(6, 6, level = 1)
-Hieb2 = Maneuver(6, 6, level = 2)
-Hieb3 = Maneuver(6, 6, level = 3)
+def readManeuverFromXElement(xManeuvers):
+    maneuvers = {}
+    for xManeuver in none2Empty(xManeuvers.findall("Manöver")):
+        # get name action points and base difficulty
+        maneuverName = xManeuver.get("id")
+        AP = xManeuver.get("AP")
+        baseDiff = xManeuver.get("GS")
+        maneuver = Maneuver(maneuverName, actionPoints=AP, baseDifficulty=baseDiff)
+        # get Pool
+        xPool = xManeuver.find("Pool")
+        if xPool is not None :
+            maneuver.pool = xPool.text
+        # get impetus
+        xImpetus = xManeuver.find("Wucht")
+        if xImpetus is not None :
+            maneuver.impetus = xImpetus.text
+        # todo get options
+        maneuvers[maneuverName] = maneuver
+    return maneuvers
 
-Stich = Maneuver(baseDifficulty=7, impetus="ST")
-Stich1 = Maneuver(baseDifficulty=7, impetus="ST", level = 1)
-Stich2 = Maneuver(baseDifficulty=7, impetus="ST", level = 2)
-Stich3 = Maneuver(baseDifficulty=7, impetus="ST", level = 3)
+def readManeuversFromXML(filename):
+    tree = ElementTree.parse(filename)
+    xManeuvers= tree.getroot()
+    actions = readManeuverFromXElement(xManeuvers.find("Aktionen"))
+    reactions = readManeuverFromXElement(xManeuvers.find("Reaktionen"))
+    return actions, reactions

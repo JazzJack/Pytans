@@ -10,8 +10,8 @@ class Player:
         self.character = character
         self.arena = arena
 
-    def doInitiative(self):
-        self.character.doInitiative()
+    def doInitiative(self, diff = 6):
+        self.character.doInitiative(diff)
 
     def wait(self):
         return 0

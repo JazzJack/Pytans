@@ -3,7 +3,8 @@
 from __future__ import division, print_function
 from rules import Attributes, defaultSkillTree
 import rules
-from rules.Attributes import getDefaultAttributes
+from rules.Announcement import Announcement, Action
+from rules.Attributes import getDefaultAttributes, getModificator
 from rules.Dicing import roll, getNumberOfSuccesses, isSuccessful
 import xml.etree.ElementTree as ElementTree
 import rules.Race as Race
@@ -16,11 +17,22 @@ class Character(object):
     def __init__(self, name):
         self.name = name
         self.attributes = getDefaultAttributes()
+        self.skills = copy.deepcopy(defaultSkillTree)
         self.vantages = []
         self.WT = 8
         self.RS = 0
         self.SR = 0
         self.exhaustion = 0
+        self.AP = 0
+        self.wounds = 0
+
+    def rollAttribute(self, att, diff, minSuccesses = 0):
+        assert att in self.attributes
+        r = roll(self.attributes[att])
+        if minSuccesses :
+            return isSuccessful(r, diff, minSuccesses)
+        else :
+            return getNumberOfSuccesses(r, diff)
 
     def soak(self, damage, sharpness):
         """
@@ -31,28 +43,48 @@ class Character(object):
         diff = sharpness - self.SR
         while damage > 0 :
             wounds += 1
-            r = roll(self.attributes["KO"])
-            damage -= getNumberOfSuccesses(r, diff)
+            damage -= self.rollAttribute("KO", diff)
         return max(0, wounds)
 
-    def attack(self, weapon, maneuver):
-        """
-        Macht den Angriffswurf für den Charakter und gibt die Anzahl der Erfolge zurück
-        """
-        poolsize = max(1, self.WT - self.exhaustion)
-        diff = maneuver.baseDifficulty + weapon.handling
-        r = roll(poolsize)
-        return getNumberOfSuccesses(r, diff)
+    def doInitiative(self, diff):
+        self.AP = self.rollAttribute("IN", diff)
 
-    def evaluateAttack(self, successes, weapon, maneuver, contraSuccesses = 0):
-        # subtract all the contraSuccesses
-        successes -= contraSuccesses
-        if successes <= 0:
-            return 0, 0       # Attack failed
-        sharpness = min(weapon.schaerfe, successes * 2)
-        successes = max(0, successes - (weapon.schaerfe+1)//2)
-        impetus = maneuver.getImpetus(self, weapon, successes)
-        return impetus, sharpness
+    def isAlive(self):
+        return self.exhaustion < self.attributes["KO"] and self.wounds < 6
+
+    def getSkillsDict(self):
+        skillsDict = {}
+        for s, v in self.skills.items() :
+            skillsDict[s] = self.getPoolSize(s)
+        return skillsDict
+
+    def getPoolSize(self, skill):
+        assert skill in self.skills
+        # todo: "Hart im Nehmen"
+        return max(1, self.skills[skill].summed() - self.exhaustion)
+
+    def rollSkill(self, skill, diff, minSuccesses = 0, att=None) :
+        assert skill in self.skills
+        if att is not None and att in self.attributes:
+            diff = max(1, diff + Attributes.getModificator(self.attributes["att"]))
+        r = roll(self.getPoolSize(skill))
+        if minSuccesses :
+            return isSuccessful(r, diff, minSuccesses)
+        else:
+            return getNumberOfSuccesses(r, diff)
+
+    def attack(self, weapon, maneuver, target, options = None):
+        """
+        Erzeugt ein Ansageobjekt und reduziert die AP
+        """
+        attack = Action(self, maneuver, weapon, options)
+        self.AP -= maneuver.getActionPoints(self, weapon, options)
+        assert self.AP >= 0
+        announcement = Announcement(attack, target)
+        return announcement
+
+    def gainAP(self):
+        self.AP += 3 + getModificator(self.attributes["SN"])
 
     def __str__(self):
         indent = "  "
@@ -94,7 +126,6 @@ def readCharacterFromXML(filename):
             import warnings
             warnings.warn("Unknown Vantage '%s'"%vantageName)
     # Skills
-    char.skills = copy.deepcopy(defaultSkillTree)
     recursiveSkillAdd(char.skills, xChar.find("Fertigkeiten"))
     return char
 

@@ -83,7 +83,7 @@ def recursiveSkillAdd(root, xRoot):
             continue
         skill = Skill(skillName, skillValue)
         root.add(skill)
-        recursiveSkillAdd(skill, xSkill)
+        recursiveSkillAdd(root[skillName], xSkill)
 
 
 def readSkillTreeFromXML(filename):
