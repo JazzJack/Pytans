@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Character>
+    <Name>Gravitus</Name>
+    <Rasse>Mensch</Rasse>
+
+    <Geschichte>
+        <Abenteuer xpGain="1613">Erschaffung</Abenteuer>
+    </Geschichte>
+
+    <Attribute>
+        <Stärke value="11"/>
+        <Konstitution value="15"/>
+        <Geschick value="11"/>
+        <Schnelligkeit value="11"/>
+        <Intelligenz value="11"/>
+        <Intuition value="11"/>
+        <Willenskraft value="11"/>
+        <Charisma value="11"/>
+    </Attribute>
+
+    <Fertigkeiten>
+        <Fertigkeit id="Nahkampf" value="3">
+            <Fertigkeit id="Schilde" value="4"/>
+            <Fertigkeit id="Hiebwaffen" value="6"/>
+        </Fertigkeit>
+    </Fertigkeiten>
+
+    <Verfassung>
+        <Erschöpfung value="0"/>
+        <Wunden>
+            <Kopf value="0"/>
+            <LinkerArm value="0"/>
+            <RechterArm value="0"/>
+            <Torso value="0"/>
+            <Beine value="0"/>
+        </Wunden>
+    </Verfassung>
+</Character>
