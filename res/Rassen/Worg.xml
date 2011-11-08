@@ -10,15 +10,16 @@
         <!--Attributsmod attribut="GrundBewegung" mod="0.5"-->
     </Attribute>
     <Teile>
-        <Nachteil id="Raubtiergeruch"/>
-        <Vorteil id="Olfaktorische Körpersprache"/>
-        <Nachteil id="Fremdartig"/>
         <Nachteil id="Sprungbeine"/>
         <Vorteil id="Klauenhände"/>
         <Vorteil id="Klauenbewährte Füße"/>
         <Vorteil id="Raubtiermaul"/>
         <Vorteil id="Hundenase"/>
+        <Vorteil id="gutes Gehör"/>
         <Nachteil id="Fleischfresser"/>
+        <Nachteil id="Raubtiergeruch"/>
+        <Vorteil id="Olfaktorische Körpersprache"/>
+        <Nachteil id="Fremdartig"/>
     </Teile>
     
 </Rasse>

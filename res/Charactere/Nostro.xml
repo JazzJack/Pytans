@@ -21,9 +21,9 @@
         <Konstitution value="10"/>
         <Geschick value="10"/>
         <Schnelligkeit value="13"/>
-        <Intelligenz value="9"/>
-        <Intuition value="12"/>
         <Willenskraft value="9"/>
+        <Intelligenz value="10"/>
+        <Intuition value="12"/>
         <Charisma value="9"/>
     </Attribute>
 
@@ -36,6 +36,7 @@
         <Vorteil id="Untrügliches Gefühl"/>
         <Vorteil id="Von Natur aus breite Schultern"/>
         <Vorteil id="Naturtalent"/>
+        <Vorteil id="Blitzschnell"/>
         <Vorteil id="Natürliche Stärke"/>
         <Vorteil id="Raffiniert"/>
     </Teile>
@@ -54,11 +55,12 @@
             <Fertigkeit id="Schwimmen" value="1"/>
         </Fertigkeit>
         <Fertigkeit id="Handwerk" value="2">
-            <Fertigkeit id="Kochen" value="1"/>
+            <Fertigkeit id="Kochen" value="2"/>
             <Fertigkeit id="Lederverarbeitung" value="7"/>
         </Fertigkeit>
         <Fertigkeit id="Steuern" value="1">
             <Fertigkeit id="Tiere" value="5"/>
+            <Fertigkeit id="Landfahrzeuge" value="1"/>
         </Fertigkeit>
         <Fertigkeit id="Wahrnehmung" value="5">
             <Fertigkeit id="Hören" value="6"/>
@@ -74,7 +76,7 @@
         </Fertigkeit>
         <Fertigkeit id="Manipulation" value="2">
             <Fertigkeit id="Pädagogik" value="2"/>
-            <Fertigkeit id="Beeinflussen" value="1"/>
+            <Fertigkeit id="Beeinflussen" value="2"/>
             <Fertigkeit id="Führen" value="6"/>
             <Fertigkeit id="Schauspielern" value="1"/>
             <Fertigkeit id="Verhandeln" value="1"/>
@@ -84,7 +86,7 @@
             <Fertigkeit id="Zoologie" value="8"/>
             <Fertigkeit id="Botanik" value="6"/>
             <Fertigkeit id="Astronomie" value="1"/>
-            <Fertigkeit id="Meterologie" value="4"/>
+            <Fertigkeit id="Meterologie" value="5"/>
         </Fertigkeit>
         <Fertigkeit id="Wissenschaft" value="1">
             <Fertigkeit id="Mathematik" value="1"/>
@@ -99,7 +101,6 @@
             <Fertigkeit id="Handgemenge" value="8"/>
             <Fertigkeit id="Messer" value="6"/>
             <Fertigkeit id="Hiebwaffen" value="1"/>
-            <Fertigkeit id="Schlagwaffen" value="1"/>
             <Fertigkeit id="Schwerter" value="2"/>
             <Fertigkeit id="Schilde" value="4"/>
             <Fertigkeit id="Stangenwaffen" value="5"/>
@@ -137,6 +138,14 @@
             <Gewicht unit="kg" value="0.2"/>
         </Waffe>
     </Ausrüstung>
+
+    <ManöverListe>
+        <Manöver id="Hieb" stufe="2"/>
+        <Manöver id="Stich" stufe="1"/>
+        <Manöver id="Wegschlagen" stufe="2"/>
+        <Manöver id="Ausweichen" stufe="1"/>
+        <Manöver id="Wurf" stufe="2"/>
+    </ManöverListe>
 
     <inventory>
         <!-- maybe for future use-->

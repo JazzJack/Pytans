@@ -9,7 +9,7 @@
     <Vorteil id="Sprungbeine" kosten="54"/>
 
     <Nachteil id="hoher Schwerpunkt" kosten="-6"/>
-    <Nachteil id="Klauenhände" kosten="-54"/>
+    <Nachteil id="Klauenhände" kosten="-20"/>
     <Nachteil id="Raubtiergeruch" kosten="-15"/>
     <Nachteil id="Olfaktorische Körpersprache" kosten="0"/>
     <Nachteil id="Fremdartig" kosten="-35"/>
