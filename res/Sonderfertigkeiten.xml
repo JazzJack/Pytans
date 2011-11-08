@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ZwitansSonderfertigkeiten>
+    <Sonderfertigkeit id="Hart im Nehmen" kosten="70"/>
+    <Sonderfertigkeit id="Tierempathie" kosten="35"/>
+    <Sonderfertigkeit id="Empath" kosten="35"/>
+</ZwitansSonderfertigkeiten>

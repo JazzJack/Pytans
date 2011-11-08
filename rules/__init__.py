@@ -18,6 +18,10 @@ from rules.Vantages import readVantagesFromFile
 vantages = readVantagesFromFile(os.path.join(basedir, "res/Teile.xml"))
 raceVantages = readVantagesFromFile(os.path.join(basedir, "res/RassenTeile.xml"))
 
+#################### read all Feats ##############################################
+from rules.Feats import readFeatsFromFile
+feats = readFeatsFromFile(os.path.join(basedir, "res/Sonderfertigkeiten.xml"))
+
 #################### read all Races ############################################
 from rules.Race import readAllRaces
 races = readAllRaces(os.path.join(basedir, "res/Rassen"))
