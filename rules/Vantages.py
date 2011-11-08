@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8
-from __future__ import division, print_function
+from __future__ import division, print_function, unicode_literals
 import xml.etree.ElementTree as ElementTree
 from rules.Utils import none2Empty
 

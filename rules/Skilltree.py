@@ -2,7 +2,13 @@
 # encoding: utf-8
 from __future__ import division, print_function
 import xml.etree.ElementTree as ElementTree
-from rules.Utils import none2Empty
+from rules.Utils import none2Empty, xpCosts
+
+SkillXPMultiplier = {
+    0 : 0,
+    1 : 10,
+    2 : 3
+}
 
 class SkillTreeRoot(dict):
     def __init__(self, **kwargs):
@@ -27,6 +33,15 @@ class SkillTreeRoot(dict):
         for subSkill in skill.values():
             ownSkill.add(subSkill)
 
+    def getTotalCosts(self):
+        costs = 0
+        for v in self.values():
+            costs += v.getCosts()
+        return costs
+
+    def getDepth(self):
+        return 0
+
 
 class Skill(dict):
     """
@@ -48,6 +63,15 @@ class Skill(dict):
             return self.value + self.parent.summed()
         else :
             return self.value
+
+    def getDepth(self):
+        return self.parent.getDepth() + 1
+
+    def getCosts(self):
+        depth = self.getDepth()
+        mult = SkillXPMultiplier[depth]
+        startVal = 1 if depth == 1 else 0 # BaseSkills first point is free
+        return xpCosts(startVal, self.value, mult)
 
     def add(self, skill):
         if skill.name in self :

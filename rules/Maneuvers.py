@@ -6,6 +6,13 @@ import xml.etree.ElementTree as ElementTree
 from rules.Utils import none2Empty
 
 
+maneuverXPCosts = {
+    0 : 0,
+    1 : 20,
+    2 : 60,
+    3 : 120
+}
+
 class Maneuver(object):
     def __init__(self, name, attributes = ()):
         self.name = name
@@ -90,6 +97,9 @@ class Maneuver(object):
         maneuver.options = list(self.options)
         maneuver.level = self.level
         return maneuver
+
+    def getXPCosts(self):
+        return maneuverXPCosts[self.level]
 
 class Option(object):
     def __init__(self, name, type, condition):

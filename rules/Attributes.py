@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8
 from __future__ import division, print_function
+from rules.Utils import xpCosts
 
 mapping = {
     u"Stärke" : "ST",
@@ -24,6 +25,9 @@ attributes = {
     "CH" : 8
 }
 
+attributeXPMultiplier = 5
+
+
 class Attributes(dict):
     def __init__(self, **kwargs):
         dict.__init__(self, attributes, **kwargs)
@@ -38,6 +42,17 @@ class Attributes(dict):
             if item in m:
                 mod += m[item]
         return dict.__getitem__(self, item) + mod
+
+    def getCost(self, att):
+        val = dict.__getitem__(self, att)
+        startVal = attributes[att]
+        return xpCosts(startVal, val, attributeXPMultiplier)
+
+    def getTotalCosts(self):
+        costs = 0
+        for att in self.keys():
+            costs += self.getCost(att)
+        return costs
 
 
 

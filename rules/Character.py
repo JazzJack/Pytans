@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8
-from __future__ import division, print_function
+from __future__ import division, print_function, unicode_literals
 from rules import Attributes, defaultSkillTree
 import rules
 from rules.Announcement import Announcement, Action
@@ -26,6 +26,8 @@ class Character(object):
         self.exhaustion = 0
         self.AP = 0
         self.wounds = 0
+        self.maneuvers = []
+        self.feats = []
 
     def rollAttribute(self, att, diff, minSuccesses = 0):
         assert att in self.attributes
@@ -114,6 +116,21 @@ class Character(object):
         self.vantages.append(vantage)
         self.attributes.addModDict(vantage.mods)
 
+    def getCosts(self):
+        costs = self.race.costs
+        costs += self.attributes.getTotalCosts()
+        costs += self.skills.getTotalCosts()
+        for v in self.vantages:
+            costs += v.costs
+        for m in self.maneuvers:
+            costs += m.getXPCosts()
+        for f in self.feats:
+            costs += f.costs
+        return costs
+
+    def addFeat(self, feat):
+        self.feats.append(feat)
+
 
 def readCharacterFromXML(filename):
     tree = ElementTree.parse(filename)
@@ -134,7 +151,25 @@ def readCharacterFromXML(filename):
         else :
             import warnings
             warnings.warn("Unknown Vantage '%s'"%vantageName)
+    # Feats
+    for f in none2Empty(xChar.find("Sonderfertigkeiten")) :
+        featName = f.get("id")
+        if featName in rules.feats:
+            char.addFeat(rules.feats[featName])
+        else :
+            import warnings
+            warnings.warn("Unknown Feat '%s' in char %s"%(featName, char.name))
     # Skills
     recursiveSkillAdd(char.skills, xChar.find("Fertigkeiten"))
+    # Maneuvers
+    for xManeuver in none2Empty(xChar.find("ManöverListe")):
+        maneuverName = xManeuver.get("id")
+        if maneuverName in rules.maneuvers:
+            maneuver = rules.maneuvers[maneuverName].copy()
+            maneuver.level = int(xManeuver.get("stufe"))
+            char.maneuvers.append(maneuver)
+        else :
+            import warnings
+            warnings.warn("Unknown Maneuver %s in Char %s"%(maneuverName, char.name))
     return char
 
