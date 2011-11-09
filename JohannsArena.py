@@ -79,7 +79,7 @@ def printReport(resultTuple):
 
 encounter = []
 for i1 in range(len(chars)):
-    for i2 in range(i1+1) :
+    for i2 in range(len(chars)) :
         encounter.append((chars[i1], chars[i2]))
 
 for c1, c2 in encounter:
@@ -94,4 +94,3 @@ for c1, c2 in encounter:
     printReport(r2)
     print ("== Differenz ==")
     printReport(rDiff)
-

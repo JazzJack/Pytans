@@ -25,7 +25,11 @@ class Combat:
                     heapq.heappush((-playerTuple[1].character.AP, playerTuple[1], False))
                     continue
             # Act
-            playerTuple[1].act()
+            playerTuple[1].character.gainAP()
+            announcement = playerTuple[1].act()
+            if announcement is not None:
+                announcement.target.player.react(announcement)
+                announcement.evaluate()
 
     def oneTeamWins(self):
         livingCharsInTheseTeams = set()

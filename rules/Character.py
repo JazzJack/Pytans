@@ -41,6 +41,7 @@ class Character(object):
         """
         Macht den Widerstandswurf für den Charakter und gibt die Anzahl der Wunden zurück.
         """
+        d = damage
         wounds = -1
         damage -= self.RS
         diff = sharpness - self.SR
@@ -50,6 +51,7 @@ class Character(object):
         wounds = max(0, wounds)
         self.wounds += wounds
         self.exhaustion += wounds
+        print("%s soaked %d against the %d and got %d wounds!"%(self.name, d, sharpness, wounds))
         return wounds
 
     def doInitiative(self, diff):
@@ -89,13 +91,14 @@ class Character(object):
         Erzeugt ein Ansageobjekt und reduziert die AP
         """
         attack = Action(self, maneuver, weapon, options)
-        self.AP -= maneuver.getActionPoints(self, weapon, options)
         assert self.AP >= 0
         announcement = Announcement(attack, target)
         return announcement
 
     def gainAP(self):
-        self.AP += 3 + getModificator(self.attributes["SN"])
+        gain = 3 - getModificator(self.attributes["SN"])
+        self.AP = min(self.attributes["GE"], self.AP + gain)
+        print("Character %s got %d AP (total %d)"%(self.name, gain, self.AP))
 
     def __str__(self):
         indent = "  "

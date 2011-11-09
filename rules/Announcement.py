@@ -19,10 +19,15 @@ class Action(object):
         self.options = options
 
     def evaluate(self):
+        self.actor.AP -= self.getAP()
         return self.maneuver.roll(self.actor, self.weapon, self.options)
 
     def getDamage(self, successes):
         return self.maneuver.getDamage(self.actor, self.weapon, self.options, successes)
+
+    def getAP(self):
+        return self.maneuver.getActionPoints(self.actor, self.weapon, self.options)
+
 
 
 class Announcement(object):
