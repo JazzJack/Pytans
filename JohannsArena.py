@@ -2,7 +2,6 @@
 # encoding: utf-8
 from __future__ import division, print_function, unicode_literals
 import numpy as np
-from rules.Attributes import getModificator
 
 from rules.Character import readCharacterFromXML
 from rules.Maneuvers import readManeuversFromXML
@@ -53,7 +52,7 @@ def fight(char, weapon, maneuver, target, RS = 0, SR = 0):
     AQ = maneuver.roll(char, weapon, {})
     wucht, shaerfe = maneuver.getDamage(char, weapon, {}, AQ)
     wounds = target.soak(max(0, wucht - RS), max(1, shaerfe - SR))
-    APR = 3 - getModificator(char.attributes["SN"])
+    APR = 3 - char.attributes.getModifier("SN")
     WPR = wounds / AP * APR
     return np.array([AP, AQ, wucht, shaerfe, wounds, WPR])
 
@@ -62,19 +61,26 @@ def repeat(char, weapon, maneuver, target, iterations = 10000, RS = 0, SR = 0):
     for i in range(iterations):
         r = fight(char, weapon, maneuver, target, RS, SR)
         results = np.vstack((results, r))
+
     mean = results.mean(0)
     min = results.min(0)
     max = results.max(0)
     var = results.var(0)
-
     return min, mean, max, var
 
-def printReport(resultTuple):
+def printDokuWikiReport(resultTuple):
     print("^ Results ^ AP ^ AQ ^ Wucht ^ Schaerfe ^ Wunden ^ WPR ^")
     print("^ Min:  |" + ("{:<6.1f} |"*6).format(*tuple(resultTuple[0])))
     print("^ Mean: |" + ("{:<6.1f} |"*6).format(*tuple(resultTuple[1])))
     print("^ Max:  |" + ("{:<6.1f} |"*6).format(*tuple(resultTuple[2])))
     print("^ Var:  |" + ("{:<6.1f} |"*6).format(*tuple(resultTuple[3])))
+
+def printCSVReport(resultTuple):
+    print("\tResults\tAP\tAQ\tWucht\tSchaerfe\tWunden\tWPR")
+    print(("Min:\t" + ("{:<6.1f}\t"*6).format(*tuple(resultTuple[0]))).replace(".", ","))
+    print(("Mean:\t" + ("{:<6.1f}\t"*6).format(*tuple(resultTuple[1]))).replace(".", ","))
+    print(("Max:\t" + ("{:<6.1f}\t"*6).format(*tuple(resultTuple[2]))).replace(".", ","))
+    print(("Var:\t" + ("{:<6.1f}\t"*6).format(*tuple(resultTuple[3]))).replace(".", ","))
 
 
 encounter = []
@@ -89,8 +95,8 @@ for c1, c2 in encounter:
 
     print ("=== %s VS %s ==="%(c1.name, c2.name))
     print ("== alte Regel ==")
-    printReport(r1)
+    printCSVReport(r1)
     print ("== neue Regel ==")
-    printReport(r2)
+    printCSVReport(r2)
     print ("== Differenz ==")
-    printReport(rDiff)
+    printCSVReport(rDiff)
