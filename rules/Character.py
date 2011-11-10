@@ -1,23 +1,26 @@
 #!/usr/bin/python
 # -*- coding: utf-8
 from __future__ import division, print_function, unicode_literals
-from rules import Attributes, defaultSkillTree
-import rules
-from rules.Announcement import Announcement, Action
-from rules.Attributes import getDefaultAttributes, getModificator
-from rules.Dicing import roll, getNumberOfSuccesses, isSuccessful
+
 import xml.etree.ElementTree as ElementTree
+import copy
+
+import rules
+from rules import defaultSkillTree
+from rules.Announcement import Announcement, Action
+import rules.Attributes
+from rules.Dicing import roll, getNumberOfSuccesses, isSuccessful
 import rules.Race as Race
 from rules.Skilltree import recursiveSkillAdd
-import copy
 from rules.Utils import none2Empty
+
 
 
 class Character(object):
 
     def __init__(self, name):
         self.name = name
-        self.attributes = getDefaultAttributes()
+        self.attributes = rules.Attributes.Attributes()
         self.skills = copy.deepcopy(defaultSkillTree)
         self.vantages = []
         self.WT = 8
@@ -30,7 +33,6 @@ class Character(object):
         self.feats = []
 
     def rollAttribute(self, att, diff, minSuccesses = 0):
-        assert att in self.attributes
         r = roll(self.attributes[att])
         if minSuccesses :
             return isSuccessful(r, diff, minSuccesses)
@@ -51,7 +53,7 @@ class Character(object):
         wounds = max(0, wounds)
         self.wounds += wounds
         self.exhaustion += wounds
-        print("%s soaked %d against the %d and got %d wounds!"%(self.name, d, sharpness, wounds))
+        #print("%s soaked %d against the %d and got %d wounds!"%(self.name, d, sharpness, wounds))
         return wounds
 
     def doInitiative(self, diff):
@@ -79,7 +81,7 @@ class Character(object):
     def rollSkill(self, skill, diff, minSuccesses = 0, att=None) :
         assert skill in self.skills
         if att is not None and att in self.attributes:
-            diff = max(1, diff + Attributes.getModificator(self.attributes["att"]))
+            diff = max(1, diff + self.attributes.getModifier(att))
         r = roll(self.getPoolSize(skill))
         if minSuccesses :
             return isSuccessful(r, diff, minSuccesses)
@@ -96,15 +98,15 @@ class Character(object):
         return announcement
 
     def gainAP(self):
-        gain = 3 - getModificator(self.attributes["SN"])
+        gain = 3 - self.attributes.getModifier("SN")
         self.AP = min(self.attributes["GE"], self.AP + gain)
         print("Character %s got %d AP (total %d)"%(self.name, gain, self.AP))
 
     def __str__(self):
         indent = "  "
         result = "<Character " + self.name + "\n"
-        for att in self.attributes.keys():
-            result += indent + att + " = " + str(self.attributes[att]) + "\n"
+        for att, val in self.attributes:
+            result += indent + att + " = " + str(val) + "\n"
         result += ">"
         return result.encode("utf-8")
 
@@ -119,9 +121,9 @@ class Character(object):
         self.vantages.append(vantage)
         self.attributes.addModDict(vantage.mods)
 
-    def getCosts(self):
+    def getXPCosts(self):
         costs = self.race.costs
-        costs += self.attributes.getTotalCosts()
+        costs += self.attributes.getXPCosts()
         costs += self.skills.getTotalCosts()
         for v in self.vantages:
             costs += v.costs
@@ -145,7 +147,7 @@ def readCharacterFromXML(filename):
     char.setRace(Race.getRaceByName(raceName))
     # Attributes
     for att in xChar.find("Attribute"):
-        char.attributes[Attributes.mapping[att.tag]] = int(att.get("value"))
+        char.attributes[rules.Attributes.mapping[att.tag]] = int(att.get("value"))
     # Vantages
     for v in none2Empty(xChar.find("Teile")) :
         vantageName = v.get("id")
