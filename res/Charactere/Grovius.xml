@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Character>
+    <Name>Herr Grovius</Name>
+    <Rasse>Faun</Rasse>
+
+    <Attribute>
+        <Stärke value="12"/>
+        <Konstitution value="10"/>
+        <Geschick value="10"/>
+        <Schnelligkeit value="10"/>
+        <Willenskraft value="11"/>
+        <Intelligenz value="12"/>
+        <Intuition value="10"/>
+        <Charisma value="11"/>
+    </Attribute>
+
+    <Teile>
+        <Vorteil id="Untrügliches Gefühl"/>
+        <Vorteil id="Naturtalent"/>
+        <Vorteil id="Raffiniert"/>
+        <Vorteil id="Willensstark"/>
+        <Vorteil id="Personifizierte Sympathie"/>
+    </Teile>
+
+    <Sonderfertigkeiten>
+    </Sonderfertigkeiten>
+
+    <Fertigkeiten>
+        <Fertigkeit id="Körperbeherrschung" value="3">
+            <Fertigkeit id="Athletik" value="6"/>
+            <Fertigkeit id="Akrobatik" value="3"/>
+            <Fertigkeit id="Heimlichkeit" value="3"/>
+            <Fertigkeit id="Klettern" value="3"/>
+            <Fertigkeit id="Schwimmen" value="2"/>
+        </Fertigkeit>
+        <Fertigkeit id="Handwerk" value="3">
+            <Fertigkeit id="Alchemie" value="1"/>
+            <Fertigkeit id="Holzbearbeitung" value="6"/>
+            <Fertigkeit id="Kochen" value="3"/>
+            <Fertigkeit id="Textilverarbeitung" value="1"/>
+            <Fertigkeit id="Lederverarbeitung" value="2"/>
+            <Fertigkeit id="Musizieren" value="5"/>
+        </Fertigkeit>
+        <Fertigkeit id="Medizin" value="1">
+            <Fertigkeit id="Chirurgie" value="1"/>
+            <Fertigkeit id="innere Medizin" value="0"/>
+            <Fertigkeit id="Psychatrie" value="3"/>
+            <Fertigkeit id="Orthopädie" value="0"/>
+        </Fertigkeit>
+        <Fertigkeit id="Steuern" value="3">
+            <Fertigkeit id="Tiere" value="6"/>
+            <Fertigkeit id="Landfahrzeuge" value="4"/>
+            <Fertigkeit id="Wasserfahrzeuge" value="1"/>
+        </Fertigkeit>
+        <Fertigkeit id="Wahrnehmung" value="4">
+            <Fertigkeit id="Hören" value="8"/>
+            <Fertigkeit id="Riechen/Schmecken" value="3"/>
+            <Fertigkeit id="Sehen" value="5"/>
+            <Fertigkeit id="Tasten" value="1"/>
+            <Fertigkeit id="Orientieren" value="4"/>
+        </Fertigkeit>
+        <Fertigkeit id="Empathie" value="3">
+            <Fertigkeit id="Emotionen erkennen" value="3"/>
+            <Fertigkeit id="Entlarven" value="6"/>
+            <Fertigkeit id="Wesen erkennen" value="4"/>
+        </Fertigkeit>
+        <Fertigkeit id="Manipulation" value="3">
+            <Fertigkeit id="Pädagogik" value="2"/>
+            <Fertigkeit id="Beeinflussen" value="6"/>
+            <Fertigkeit id="Führen" value="3"/>
+            <Fertigkeit id="Schauspielern" value="5"/>
+            <Fertigkeit id="Verhandeln" value="3"/>
+        </Fertigkeit>
+        <Fertigkeit id="Naturkunde" value="3">
+            <Fertigkeit id="Ethnologie" value="1"/>
+            <Fertigkeit id="Zoologie" value="3"/>
+            <Fertigkeit id="Botanik" value="6"/>
+            <Fertigkeit id="Geologie" value="2"/>
+            <Fertigkeit id="Astronomie" value="2"/>
+            <Fertigkeit id="Meterologie" value="1"/>
+            <Fertigkeit id="Geographie" value="1"/>
+        </Fertigkeit>
+        <Fertigkeit id="Wissenschaft" value="3">
+            <Fertigkeit id="Physik" value="3"/>
+            <Fertigkeit id="Chemie" value="1"/>
+            <Fertigkeit id="Mathematik" value="6"/>
+            <Fertigkeit id="Baukunst" value="2"/>
+            <Fertigkeit id="Kriegskunst" value="1"/>
+        </Fertigkeit>
+        <Fertigkeit id="Kulturwissen" value="3">
+            <Fertigkeit id="Gebräuche" value="3"/>
+            <Fertigkeit id="Heraldik" value="0"/>
+            <Fertigkeit id="Literatur" value="6"/>
+            <Fertigkeit id="Geschichte" value="4"/>
+            <Fertigkeit id="Staatskunst" value="1"/>
+            <Fertigkeit id="Theologie" value="1"/>
+        </Fertigkeit>
+        <Fertigkeit id="Nahkampf" value="4">
+            <Fertigkeit id="Ausweichen" value="5"/>
+            <Fertigkeit id="Handgemenge" value="5"/>
+            <Fertigkeit id="Messer" value="8"/>
+            <Fertigkeit id="Hiebwaffen" value="1"/>
+            <Fertigkeit id="Schwerter" value="4"/>
+            <Fertigkeit id="Schilde" value="1"/>
+            <Fertigkeit id="Kettenwaffen" value="0"/>
+            <Fertigkeit id="Stangenwaffen" value="0"/>
+        </Fertigkeit>
+        <Fertigkeit id="Fernkampf" value="4">
+            <Fertigkeit id="Wurfwaffen" value="2"/>
+            <Fertigkeit id="Schleuderwaffen" value="1"/>
+            <Fertigkeit id="Schusswaffen" value="2"/>
+            <Fertigkeit id="Zugwaffen" value="9"/>
+            <Fertigkeit id="Geschütze" value="1"/>
+        </Fertigkeit>
+    </Fertigkeiten>
+
+
+    <ManöverListe>
+        <Manöver id="Hieb" stufe="1"/>
+        <Manöver id="Stich" stufe="2"/>
+        <Manöver id="Block" stufe="2"/>
+        <Manöver id="Bogenschuss" stufe="2"/>
+    </ManöverListe>
+
+</Character>

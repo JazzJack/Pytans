@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Character>
+    <Name>Jaque</Name>
+    <Rasse>Mensch</Rasse>
+
+    <Attribute>
+        <Stärke value="11"/>
+        <Konstitution value="10"/>
+        <Geschick value="14"/>
+        <Schnelligkeit value="10"/>
+        <Willenskraft value="8"/>
+        <Intelligenz value="10"/>
+        <Intuition value="10"/>
+        <Charisma value="14"/>
+    </Attribute>
+
+    <Teile>
+        <Vorteil id="Untrügliches Gefühl"/>
+        <Vorteil id="Von Natur aus breite Schultern"/>
+        <Vorteil id="Naturtalent"/>
+        <Vorteil id="Blitzschnell"/>
+        <Vorteil id="Natürliche Stärke"/>
+        <Vorteil id="Raffiniert"/>
+        <Vorteil id="Charismatisch"/>
+    </Teile>
+
+    <Sonderfertigkeiten>
+    </Sonderfertigkeiten>
+
+    <Fertigkeiten>
+        <Fertigkeit id="Körperbeherrschung" value="4">
+            <Fertigkeit id="Athletik" value="6"/>
+            <Fertigkeit id="Akrobatik" value="4"/>
+            <Fertigkeit id="Heimlichkeit" value="9"/>
+            <Fertigkeit id="Klettern" value="8"/>
+            <Fertigkeit id="Schwimmen" value="4"/>
+        </Fertigkeit>
+        <Fertigkeit id="Handwerk" value="1">
+            <Fertigkeit id="Kochen" value="6"/>
+        </Fertigkeit>
+        <Fertigkeit id="Steuern" value="1">
+            <Fertigkeit id="Tiere" value="5"/>
+        </Fertigkeit>
+        <Fertigkeit id="Wahrnehmung" value="4">
+            <Fertigkeit id="Hören" value="8"/>
+            <Fertigkeit id="Riechen/Schmecken" value="2"/>
+            <Fertigkeit id="Sehen" value="8"/>
+            <Fertigkeit id="Tasten" value="2"/>
+            <Fertigkeit id="Orientieren" value="6"/>
+        </Fertigkeit>
+        <Fertigkeit id="Empathie" value="2">
+            <Fertigkeit id="Emotionen erkennen" value="2"/>
+            <Fertigkeit id="Entlarven" value="5"/>
+            <Fertigkeit id="Wesen erkennen" value="3"/>
+        </Fertigkeit>
+        <Fertigkeit id="Manipulation" value="4">
+            <Fertigkeit id="Beeinflussen" value="10"/>
+            <Fertigkeit id="Führen" value="1"/>
+            <Fertigkeit id="Schauspielern" value="7"/>
+            <Fertigkeit id="Verhandeln" value="9"/>
+        </Fertigkeit>
+        <Fertigkeit id="Wissenschaft" value="1">
+            <Fertigkeit id="Mathematik" value="5"/>
+            <Fertigkeit id="Kriegskunst" value="1"/>
+        </Fertigkeit>
+        <Fertigkeit id="Kulturwissen" value="1">
+            <Fertigkeit id="Gebräuche" value="2"/>
+            <Fertigkeit id="Heraldik" value="2"/>
+            <Fertigkeit id="Literatur" value="2"/>
+            <Fertigkeit id="Geschichte" value="2"/>
+            <Fertigkeit id="Staatskunst" value="2"/>
+            <Fertigkeit id="Theologie" value="2"/>
+        </Fertigkeit>
+        <Fertigkeit id="Nahkampf" value="4">
+            <Fertigkeit id="Ausweichen" value="7"/>
+            <Fertigkeit id="Handgemenge" value="4"/>
+            <Fertigkeit id="Messer" value="4"/>
+            <Fertigkeit id="Schwerter" value="9"/>
+            <Fertigkeit id="Schilde" value="7"/>
+        </Fertigkeit>
+        <Fertigkeit id="Fernkampf" value="3">
+            <Fertigkeit id="Wurfwaffen" value="10"/>
+        </Fertigkeit>
+    </Fertigkeiten>
+
+    <ManöverListe>
+        <Manöver id="Wegzucken" stufe="1"/>
+        <Manöver id="Stich" stufe="2"/>
+        <Manöver id="Block" stufe="2"/>
+        <Manöver id="Ausweichen" stufe="1"/>
+        <Manöver id="Wurf" stufe="2"/>
+    </ManöverListe>
+
+</Character>

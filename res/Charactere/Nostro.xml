@@ -17,7 +17,7 @@
     </Geschichte>
 
     <Attribute>
-        <Stärke value="10"/>
+        <Stärke value="11"/>
         <Konstitution value="10"/>
         <Geschick value="10"/>
         <Schnelligkeit value="13"/>
@@ -64,7 +64,7 @@
         </Fertigkeit>
         <Fertigkeit id="Wahrnehmung" value="5">
             <Fertigkeit id="Hören" value="6"/>
-            <Fertigkeit id="Riechen/Schmecken" value="10"/>
+            <Fertigkeit id="Riechen/Schmecken" value="11"/>
             <Fertigkeit id="Sehen" value="5"/>
             <Fertigkeit id="Tasten" value="3"/>
             <Fertigkeit id="Orientieren" value="6"/>
@@ -82,26 +82,28 @@
             <Fertigkeit id="Verhandeln" value="1"/>
         </Fertigkeit>
         <Fertigkeit id="Naturkunde" value="4">
-            <Fertigkeit id="Ethnologie" value="1"/>
+            <Fertigkeit id="Ethnologie" value="2"/>
             <Fertigkeit id="Zoologie" value="8"/>
             <Fertigkeit id="Botanik" value="6"/>
             <Fertigkeit id="Astronomie" value="1"/>
             <Fertigkeit id="Meterologie" value="5"/>
+            <Fertigkeit id="Geographie" value="1"/>
         </Fertigkeit>
         <Fertigkeit id="Wissenschaft" value="1">
             <Fertigkeit id="Mathematik" value="1"/>
             <Fertigkeit id="Kriegskunst" value="5"/>
         </Fertigkeit>
         <Fertigkeit id="Kulturwissen" value="2">
-            <Fertigkeit id="Gebräuche" value="4"/>
-            <Fertigkeit id="Theologie" value="1"/>
+            <Fertigkeit id="Gebräuche" value="5"/>
+            <Fertigkeit id="Theologie" value="2"/>
+            <Fertigkeit id="Geschichte" value="1"/>
         </Fertigkeit>
         <Fertigkeit id="Nahkampf" value="4">
             <Fertigkeit id="Ausweichen" value="6"/>
             <Fertigkeit id="Handgemenge" value="8"/>
             <Fertigkeit id="Messer" value="6"/>
             <Fertigkeit id="Hiebwaffen" value="1"/>
-            <Fertigkeit id="Schwerter" value="2"/>
+            <Fertigkeit id="Schwerter" value="3"/>
             <Fertigkeit id="Schilde" value="4"/>
             <Fertigkeit id="Stangenwaffen" value="5"/>
         </Fertigkeit>
