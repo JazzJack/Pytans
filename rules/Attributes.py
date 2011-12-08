@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8
 from __future__ import division, print_function, unicode_literals
-from rules.Utils import xpCosts
+from rules.Core import xpCosts
 
 # Mapping to translate long attribute names to abbreviations
 mapping = {

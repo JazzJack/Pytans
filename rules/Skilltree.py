@@ -2,7 +2,8 @@
 # encoding: utf-8
 from __future__ import division, print_function
 import xml.etree.ElementTree as ElementTree
-from rules.Utils import none2Empty, xpCosts
+from rules.Core import xpCosts
+from rules.Utils import none2Empty
 
 SkillXPMultiplier = {
     0 : 0,

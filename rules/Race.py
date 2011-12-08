@@ -1,11 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8
-from __future__ import division, print_function
-import xml.etree.ElementTree as ElementTree
-from rules import *
+from __future__ import division, print_function, unicode_literals
+
 import os
+import xml.etree.ElementTree as ElementTree
+
+from rules import *
 from rules.Utils import none2Empty
 
+# captures XP costs for attribute modifications as needed for race balancing
 attributeModCost = {
     -4 : -350,
     -3 : -225,
@@ -20,6 +23,9 @@ attributeModCost = {
 
 
 class Race(object):
+    """
+    Represents a race. At the moment this only captures a name, attribute modificators and a list of vantages.
+    """
     def __init__(self, name):
         self.name = name
         self.attributeMods = {}
@@ -41,13 +47,12 @@ class Race(object):
             costs += attributeModCost[v]
         return costs
 
-    @property
-    def costs(self):
+    def getXPCosts(self):
         return self.getVantageCosts() + self.getAttributeModCosts()
 
 
 
-def readRaceFromFile(filename):
+def readRaceFromXMLFile(filename):
     tree = ElementTree.parse(filename)
     xRace = tree.getroot()
     raceName = xRace.find("Name").text
@@ -67,12 +72,12 @@ def readRaceFromFile(filename):
 
 def getRaceByName(name) :
     basePath = "res/Rassen/"
-    return readRaceFromFile(basePath + name + ".xml")
+    return readRaceFromXMLFile(basePath + name + ".xml")
 
 def readAllRaces(path):
     races = {}
     for f in os.listdir(path):
         if f.endswith(".xml") :
-            r = readRaceFromFile(os.path.join(path, f))
+            r = readRaceFromXMLFile(os.path.join(path, f))
             races[r.name] = r
     return races

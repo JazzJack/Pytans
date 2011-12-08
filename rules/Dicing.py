@@ -7,7 +7,7 @@ import numpy.random as npr
 
 def roll(poolSize):
     """
-    Würfelt einen Pool der gegebenen größe mit evtl. nachwürfeln und gibt ein np-array mit den ergebnissen zurück.
+    Würfelt einen Pool der gegebenen größe mit evtl. nachwürfeln und gibt ein np-array mit den Ergebnissen zurück.
     """
     result = npr.randint(0,10, size = poolSize)
     for i, r in enumerate(result) :
@@ -43,7 +43,7 @@ def isBotch(rolls, difficulty):
     return getNumberOfSuccesses(rolls, difficulty) == 0 and rolls[0] == 0
 
 
-def doARoll(poolsize, difficulty, requiredSuccesses):
+def doAVerboseRoll(poolsize, difficulty, requiredSuccesses):
     r = roll(poolsize)
     print("Rolled:", r)
     successes = r[r >= difficulty]

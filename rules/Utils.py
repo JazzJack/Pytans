@@ -8,8 +8,3 @@ def none2Empty(list):
     else:
         return list
 
-def xpCosts(startValue, targetValue, multiplier):
-    costs = targetValue * (targetValue + 1) / 2
-    costs -= startValue * (startValue  + 1) / 2
-    costs *= multiplier
-    return costs

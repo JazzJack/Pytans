@@ -1,15 +1,32 @@
 #!/usr/bin/python
 # -*- coding: utf-8
 from __future__ import division, print_function, unicode_literals
+
 import xml.etree.ElementTree as ElementTree
+
 from rules import defaultSkillTree
 from rules.Utils import none2Empty
 
+# Unit conversion factors to determine weights of items
 weightUnits = {"kg" : 1.,
                "g"  : 0.001,
-               "t"  : 1000}
+               "t"  : 1000,
+               "pounds" : 0.5,
+               "pfund" : 0.5,
+               "stein" : 0.96,
+               "zentner" : 50,
+               "karat" : 0.0002,
+               "Unze" : 0.0283,
+               "mg"   : 0.000001,
+               "kt"   : 1000000
+}
 
 class Weapon(dict):
+    """
+    Represents a weapon and acts mainly as a dictionary.
+    you can access any value of the weapon by the [ ] operator.
+    Only name, weight and weaponSkill are stored as attributes.
+    """
     def __init__(self, name, **kwargs):
         dict.__init__(self, (), **kwargs)
         self.name = name

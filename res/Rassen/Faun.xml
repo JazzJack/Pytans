@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Rasse>
-    <Name>Mensch</Name>
+    <Name>Faun</Name>
+    <Attribute>
+        <Attributsmod attribut="ST" mod="-1"/>
+        <Attributsmod attribut="KO" mod="-1"/>
+        <Attributsmod attribut="SN" mod="1"/>
+        <Attributsmod attribut="WK" mod="-1"/>
+        <Attributsmod attribut="CH" mod="2"/>
+    </Attribute>
+    <Teile>
+        <Vorteil id="gutes Gehör"/>
+    </Teile>
 </Rasse>

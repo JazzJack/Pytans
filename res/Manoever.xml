@@ -40,4 +40,9 @@
         <Mod var="GS" value="-(level&gt;=1)"/>
     </Manoever>
 
+    <Manoever id="Bogenschuss" AP="8" GS="7"
+              pool="WT"
+              wucht="ST + WW + wuchtTechnik">
+    </Manoever>
+
 </ZwitansManoever>

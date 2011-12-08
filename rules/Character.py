@@ -105,8 +105,8 @@ class Character(object):
     def __str__(self):
         indent = "  "
         result = "<Character " + self.name + "\n"
-        for att, val in self.attributes:
-            result += indent + att + " = " + str(val) + "\n"
+        for att, _ in self.attributes:
+            result += indent + att + " = " + str(self.attributes[att]) + "\n"
         result += ">"
         return result.encode("utf-8")
 
@@ -122,7 +122,7 @@ class Character(object):
         self.attributes.addModDict(vantage.mods)
 
     def getXPCosts(self):
-        costs = self.race.costs
+        costs = self.race.getXPCosts()
         costs += self.attributes.getXPCosts()
         costs += self.skills.getTotalCosts()
         for v in self.vantages:
