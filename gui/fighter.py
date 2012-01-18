@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
 from __future__ import division, print_function, unicode_literals
-from PyQt4.QtCore import Qt
 
 class Fighter(object):
     def __init__(self, name, AP, SN):
@@ -26,16 +25,19 @@ class Fighter(object):
         if self.active:
             return 0, 255, 0, 128
         elif self.acted :
-            return 128, 128, 128, 255
+            return 196, 196, 196, 128
         else :
             return 0, 128, 0, 64
 
-
-    def gainAP(self):
+    @property
+    def APGain(self):
         bonus = [-2,-2,-2,-2,-2,-2,-1,-1,0,0,0,1,1,1,1,2,2,2,2,2,3,3,3,3,3,3,4]
-        self.AP += 3 + bonus[self.SN]
+        return 3 + bonus[self.SN]
+
 
     def endTurn(self):
+        assert self.active
+        self.active = False
         self.acted = False
         self.waited = False
 

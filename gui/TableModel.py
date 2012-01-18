@@ -8,6 +8,13 @@ from PyQt4 import QtCore
 from PyQt4.QtGui import QBrush, QColor
 from bunch import Bunch
 
+
+def convert2PyObject(obj):
+    if isinstance(obj, QtCore.QVariant):
+        return obj.toPyObject()
+    else:
+        return obj
+
 class GenericTableModel(QtCore.QAbstractTableModel):
     def __init__(self, data, headers, attributes, userAttributes = (), defaultNode = None, parent=None):
         QtCore.QAbstractItemModel.__init__(self, parent)
@@ -32,8 +39,8 @@ class GenericTableModel(QtCore.QAbstractTableModel):
         return len(self.columnHeaders)
 
     def data(self, index, role):
-        if not index.isValid():
-            return None
+#        if not index.isValid():
+#            return None
         row, col = index.row(), index.column()
         r = self.rows[row]
         if role == QtCore.Qt.EditRole or role == QtCore.Qt.DisplayRole:
@@ -49,9 +56,15 @@ class GenericTableModel(QtCore.QAbstractTableModel):
 
     def setData(self, index, value, role=QtCore.Qt.EditRole):
         if index.isValid():
+            row, col = index.row(), index.column()
             if role == QtCore.Qt.EditRole:
-                row = index.row()
-                self.rows[row].__setattr__(self.columnAttributes[index.column()], value.toPyObject())
+                self.rows[row].__setattr__(self.columnAttributes[col], convert2PyObject(value))
+                indexLeft = self.index(row, 0)
+                indexRight = self.index(row, len(self.columnAttributes) - 1)
+                self.dataChanged.emit(indexLeft, indexRight)
+                return True
+            if role == QtCore.Qt.UserRole:
+                self.rows[row].__setattr__(self.userAttributes[col], convert2PyObject(value))
                 indexLeft = self.index(row, 0)
                 indexRight = self.index(row, len(self.columnAttributes) - 1)
                 self.dataChanged.emit(indexLeft, indexRight)
