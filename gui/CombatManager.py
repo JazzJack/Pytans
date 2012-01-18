@@ -28,7 +28,6 @@ class CombatManagerMain(base, form):
         self.actionRemove.triggered.connect(self.on_remove_action)
 
     def on_add_action(self):
-
         rowCnt = self.model.rowCount()
         self.model.insertRows(rowCnt, 1)
 
@@ -42,6 +41,7 @@ class CombatManagerMain(base, form):
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     f1 = Fighter("Hugo", 7, 11)
+    f1.active = True
     f2 = Fighter("Karl", 2, 15)
     f3 = Fighter("David Hasselhoff", 1, 7)
 

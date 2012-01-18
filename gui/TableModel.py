@@ -5,6 +5,7 @@ from __future__ import division, print_function, unicode_literals
 from copy import copy
 
 from PyQt4 import QtCore
+from PyQt4.QtGui import QBrush, QColor
 from bunch import Bunch
 
 class GenericTableModel(QtCore.QAbstractTableModel):
@@ -34,12 +35,16 @@ class GenericTableModel(QtCore.QAbstractTableModel):
         if not index.isValid():
             return None
         row, col = index.row(), index.column()
+        r = self.rows[row]
         if role == QtCore.Qt.EditRole or role == QtCore.Qt.DisplayRole:
             if len(self.columnAttributes) > col:
-                return  self.rows[row].__getattribute__(self.columnAttributes[col])
+                return  r.__getattribute__(self.columnAttributes[col])
         elif role == QtCore.Qt.UserRole:
             if len(self.userAttributes) > col:
-                return self.rows[row].__getattribute__(self.userAttributes[col])
+                return r.__getattribute__(self.userAttributes[col])
+        elif role == QtCore.Qt.BackgroundRole:
+            if hasattr(r, "background"):
+                return QBrush(QColor(*self.rows[row].background))
 
 
     def setData(self, index, value, role=QtCore.Qt.EditRole):

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding=utf-8
 from __future__ import division, print_function, unicode_literals
-
+from PyQt4.QtCore import Qt
 
 class Fighter(object):
     def __init__(self, name, AP, SN):
@@ -20,6 +20,15 @@ class Fighter(object):
         elif self.acted :
             priority = +1000000
         return priority - self.AP * 1000 - self.IN
+
+    @property
+    def background(self):
+        if self.active:
+            return 0, 255, 0, 128
+        elif self.acted :
+            return 128, 128, 128, 255
+        else :
+            return 0, 128, 0, 64
 
 
     def gainAP(self):
