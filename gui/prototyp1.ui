@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>580</width>
-    <height>693</height>
+    <width>431</width>
+    <height>690</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,14 +23,10 @@
       <property name="selectionBehavior">
        <enum>QAbstractItemView::SelectRows</enum>
       </property>
-      <attribute name="horizontalHeaderStretchLastSection">
-       <bool>true</bool>
-      </attribute>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
     <string>toolBar</string>
@@ -46,6 +42,7 @@
    <addaction name="separator"/>
    <addaction name="actionNext"/>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionAdd">
    <property name="text">
     <string>Add</string>

@@ -52,6 +52,8 @@ class GenericTableModel(QtCore.QAbstractTableModel):
         elif role == QtCore.Qt.BackgroundRole:
             if hasattr(r, "background"):
                 return QBrush(QColor(*self.rows[row].background))
+        elif role == QtCore.Qt.TextAlignmentRole:
+            return QtCore.Qt.AlignCenter
 
 
     def setData(self, index, value, role=QtCore.Qt.EditRole):

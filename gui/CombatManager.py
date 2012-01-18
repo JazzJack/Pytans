@@ -22,7 +22,11 @@ class CombatManagerMain(base, form):
         self.proxyModel.setSortRole(QtCore.Qt.UserRole)
         self.proxyModel.sort(sortCol)
         self.combatTable.setModel(self.proxyModel)
+        self.combatTable.resizeColumnsToContents()
+        #self.combatTable.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
         self.selectionModel = self.combatTable.selectionModel()
+        self.round = 1
+        self.statusbar.showMessage('Runde: %d'%self.round)
 
         self.actionAdd.triggered.connect(self.on_add_action)
         self.actionRemove.triggered.connect(self.on_remove_action)
@@ -81,6 +85,10 @@ class CombatManagerMain(base, form):
             # start new round
             for i in range(self.model.rowCount()):
                 self.setData(i, "acted", False)
+            self.round += 1
+            self.statusbar.showMessage('Runde: %d'%self.round)
+        self.selectionModel.clearSelection()
+
 
 
 
@@ -88,12 +96,12 @@ if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     f1 = Fighter("Hugo", 7, 11)
     f2 = Fighter("Karl", 2, 15)
-    f3 = Fighter("David Hasselhoff", 1, 7)
+    f3 = Fighter("David Hasselhoff", 10, 10)
 
     model = GenericTableModel(
         data= [f1, f2, f3],
-        headers= ["Name", "AP", "SN", "GE", "IN"],#, "Acted", "Active"],
-        attributes= ["name", "AP", "SN", "GE", "IN", "acted", "active"],
+        headers= ["               Name               ", "SN", "GE", "IN", "Aktionspunkte"],#, "Acted", "Active"],
+        attributes= ["name", "SN", "GE", "IN", "AP", "acted", "active"],
         userAttributes= ["priority", "active", "acted", "AP", "APGain"],
         defaultNode= Fighter("", 0, 10))
     w = CombatManagerMain(model)
