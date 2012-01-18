@@ -13,17 +13,24 @@ base, form = uic.loadUiType("prototyp1.ui")
 class CombatManagerMain(base, form):
     def __init__(self, model, parent=None, sortCol = 0):
         super(base, self).__init__(parent)
+        self.setupUi(self)
 
+        self.model = model
         self.proxyModel = QtGui.QSortFilterProxyModel()
         self.proxyModel.setSourceModel(model)
         self.proxyModel.setDynamicSortFilter(True)
         self.proxyModel.setSortRole(QtCore.Qt.UserRole)
         self.proxyModel.sort(sortCol)
-
-
-        self.setupUi(self)
         self.combatTable.setModel(self.proxyModel)
-        #self.combatTable.setSortingEnabled(True)
+
+
+        self.actionAdd.triggered.connect(self.on_add_action)
+
+    def on_add_action(self):
+        print("Adding new Char")
+        rowCnt = self.model.rowCount()
+        self.model.insertRows(rowCnt, 1)
+
 
 
 if __name__ == "__main__":

@@ -77,14 +77,15 @@ class GenericTableModel(QtCore.QAbstractTableModel):
 #
 #        return self.createIndex(parentNode.row(), 0, parentNode)
 
-    def insertRows(self, position, rows, parent=QtCore.QModelIndex()):
+    def insertRows(self, position, rows, parent=QtCore.QModelIndex(), *args, **kwargs):
+
         self.beginInsertRows(parent, position, position + rows - 1)
-        success = True
+        print("INSERT")
         for row in range(rows):
             newRow = copy(self.defaultNode)
-            success &= self.rows.insert(position, newRow)
+            self.rows.insert(position, newRow)
         self.endInsertRows()
-        return success
+        return True
 
     def removeRows(self, position, rows, parent=QtCore.QModelIndex()):
         self.beginRemoveRows(parent, position, position + rows - 1)
