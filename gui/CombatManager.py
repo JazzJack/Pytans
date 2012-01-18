@@ -22,14 +22,20 @@ class CombatManagerMain(base, form):
         self.proxyModel.setSortRole(QtCore.Qt.UserRole)
         self.proxyModel.sort(sortCol)
         self.combatTable.setModel(self.proxyModel)
-
+        self.selectionModel = self.combatTable.selectionModel()
 
         self.actionAdd.triggered.connect(self.on_add_action)
+        self.actionRemove.triggered.connect(self.on_remove_action)
 
     def on_add_action(self):
-        print("Adding new Char")
+
         rowCnt = self.model.rowCount()
         self.model.insertRows(rowCnt, 1)
+
+    def on_remove_action(self):
+        selectedRows = [self.proxyModel.mapToSource(index).row() for index in self.selectionModel.selectedRows()]
+        for s in selectedRows:
+            self.model.removeRows(s, 1)
 
 
 
