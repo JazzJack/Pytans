@@ -28,6 +28,31 @@ class CombatManagerMain(base, form):
         self.actionRemove.triggered.connect(self.on_remove_action)
         self.actionNext.triggered.connect(self.on_next_action)
 
+    def setData(self, row, attr, value):
+        if attr in self.model.userAttributes:
+            col = self.model.userAttributes.index(attr)
+            role = QtCore.Qt.UserRole
+        elif attr in self.model.columnAttributes:
+            col = self.model.columnAttributes.index(attr)
+            role = QtCore.Qt.DisplayRole
+        else :
+            return
+        model_index = self.model.index(row, col)
+        self.model.setData(model_index, value, role)
+
+    def getData(self, row, attr):
+        if attr in self.model.userAttributes:
+            col = self.model.userAttributes.index(attr)
+            role = QtCore.Qt.UserRole
+        elif attr in self.model.columnAttributes:
+            col = self.model.columnAttributes.index(attr)
+            role = QtCore.Qt.DisplayRole
+        else :
+            return
+        model_index = self.model.index(row, col)
+        return self.model.data(model_index, role)
+
+
     def on_add_action(self):
         rowCnt = self.model.rowCount()
         self.model.insertRows(rowCnt, 1)
@@ -38,25 +63,24 @@ class CombatManagerMain(base, form):
             self.model.removeRows(s, 1)
 
     def on_next_action(self):
-        # get first in list
-        first_active = self.proxyModel.mapToSource(self.proxyModel.index(0, 1))
-        first_acted = self.proxyModel.mapToSource(self.proxyModel.index(0, 2))
-
+        row_of_first = self.proxyModel.mapToSource(self.proxyModel.index(0, 0)).row()
         # if first one is active : end his turn!
-        if self.model.data(first_active, QtCore.Qt.UserRole):
-            self.model.setData(first_active, False, role = QtCore.Qt.UserRole)
-            self.model.setData(first_acted, True, role = QtCore.Qt.UserRole)
+        if self.getData(row_of_first, "active"):
+            self.setData(row_of_first, "active", False)
+            self.setData(row_of_first, "acted", True)
 
         # if new first one hasn't acted yet : start his turn
-        newFirst_active = self.proxyModel.mapToSource(self.proxyModel.index(0, 1))
-        newFirst_acted = self.proxyModel.mapToSource(self.proxyModel.index(0, 2))
-        newFirst_AP = self.proxyModel.mapToSource(self.proxyModel.index(0, 3))
-        newFirst_APGain = self.proxyModel.mapToSource(self.proxyModel.index(0, 4))
-        if not self.model.data(newFirst_acted, QtCore.Qt.UserRole):
-            apGain = self.model.data(newFirst_APGain, role=QtCore.Qt.UserRole)
-            ap = self.model.data(newFirst_AP, role=QtCore.Qt.UserRole)
-            self.model.setData(newFirst_active, True, role = QtCore.Qt.UserRole)
-            self.model.setData(newFirst_AP, ap + apGain, role=QtCore.Qt.UserRole)
+        row_of_first = self.proxyModel.mapToSource(self.proxyModel.index(0, 0)).row()
+        if not self.getData(row_of_first, "acted"):
+            ap = self.getData(row_of_first, "AP")
+            apGain = self.getData(row_of_first, "APGain")
+            apMax = self.getData(row_of_first, "GE")
+            self.setData(row_of_first, "active", True)
+            self.setData(row_of_first, "AP", min(apMax, ap + apGain))
+        else :
+            # start new round
+            for i in range(self.model.rowCount()):
+                self.setData(i, "acted", False)
 
 
 
@@ -68,11 +92,12 @@ if __name__ == "__main__":
 
     model = GenericTableModel(
         data= [f1, f2, f3],
-        headers= ["Name", "AP", "SN", "IN"],
-        attributes= ["name", "AP", "SN", "IN", "active"],
+        headers= ["Name", "AP", "SN", "GE", "IN"],#, "Acted", "Active"],
+        attributes= ["name", "AP", "SN", "GE", "IN", "acted", "active"],
         userAttributes= ["priority", "active", "acted", "AP", "APGain"],
         defaultNode= Fighter("", 0, 10))
     w = CombatManagerMain(model)
     w.show()
 
     sys.exit(app.exec_())
+

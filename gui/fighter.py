@@ -7,6 +7,7 @@ class Fighter(object):
         self.name = name
         self.AP = AP
         self.SN = SN
+        self.GE = 10
         self.IN = 10
         self.acted = False
         self.active = False
