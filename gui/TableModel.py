@@ -24,10 +24,10 @@ class GenericTableModel(QtCore.QAbstractTableModel):
                 obj[att] = ""
             self.defaultNode = obj
 
-    def rowCount(self, parent = None):
+    def rowCount(self, parent = None, *args, **kwargs):
         return len(self.rows)
 
-    def columnCount(self, parent = None):
+    def columnCount(self, parent = None, *args, **kwargs):
         return len(self.columnHeaders)
 
     def data(self, index, role):
@@ -64,21 +64,11 @@ class GenericTableModel(QtCore.QAbstractTableModel):
         return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable
 
 
-    def index(self, row, column, parent = None):
+    def index(self, row, column, parent = None, *args, **kwargs):
         return self.createIndex(row, column, self.rows[row].__getattribute__(self.columnAttributes[column]))
 
 
-#    def parent(self, index=None):
-#        node = self.getNode(index)
-#        parentNode = node.parent()
-#
-#        if parentNode == self._rootNode:
-#            return QtCore.QModelIndex()
-#
-#        return self.createIndex(parentNode.row(), 0, parentNode)
-
     def insertRows(self, position, rows, parent=QtCore.QModelIndex(), *args, **kwargs):
-
         self.beginInsertRows(parent, position, position + rows - 1)
         print("INSERT")
         for row in range(rows):
@@ -87,7 +77,7 @@ class GenericTableModel(QtCore.QAbstractTableModel):
         self.endInsertRows()
         return True
 
-    def removeRows(self, position, rows, parent=QtCore.QModelIndex()):
+    def removeRows(self, position, rows, parent=QtCore.QModelIndex(), *args, **kwargs):
         self.beginRemoveRows(parent, position, position + rows - 1)
         for row in range(rows):
             del self.rows[position]
