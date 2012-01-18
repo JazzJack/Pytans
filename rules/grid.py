@@ -21,6 +21,12 @@ def getCornersClockwise(x, y, radius = 1):
     return [upper, upperRight, lowerRight, lower, lowerLeft, upperLeft]
 
 
+def getDistance(start, end):
+    dX = start[0] - end[0]
+    dY = start[1] - end[1]
+    return max(abs(dX), abs(dY), abs(dX + dY))
+
+
 import matplotlib.pyplot as plt
 from matplotlib.collections import PatchCollection
 import matplotlib.patches as mpatches
