@@ -3,12 +3,12 @@
 from __future__ import division, print_function, unicode_literals
 
 class Fighter(object):
-    def __init__(self, name, AP, SN):
+    def __init__(self, name, AP=0, SN=10, GE=10, IN=10):
         self.name = name
         self.AP = AP
         self.SN = SN
-        self.GE = 10
-        self.IN = 10
+        self.GE = GE
+        self.IN = IN
         self.acted = False
         self.active = False
 
@@ -34,21 +34,6 @@ class Fighter(object):
     def APGain(self):
         bonus = [-2,-2,-2,-2,-2,-2,-1,-1,0,0,0,1,1,1,1,2,2,2,2,2,3,3,3,3,3,3,4]
         return 3 + bonus[self.SN]
-
-
-    def endTurn(self):
-        assert self.active
-        self.active = False
-        self.acted = False
-        self.waited = False
-
-    def wait(self, duration):
-        self.AP -= duration
-        self.waited = True
-
-    def act(self, duration):
-        self.AP -= duration
-        self.acted = True
 
     def __str__(self):
         return self.name
