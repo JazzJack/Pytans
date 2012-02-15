@@ -1,0 +1,4 @@
+Hugo, 11, 10, 10, 7, false, false
+Karl, 15, 10, 10, 2, false, false
+David Hasselhoff, 10, 10, 10, 10, false, false
+Nostro, 22, 22, 22, 22, false, false

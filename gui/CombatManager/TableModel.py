@@ -90,7 +90,6 @@ class GenericTableModel(QtCore.QAbstractTableModel):
 
     def insertRows(self, position, rows, parent=QtCore.QModelIndex(), *args, **kwargs):
         self.beginInsertRows(parent, position, position + rows - 1)
-        print("INSERT")
         for row in range(rows):
             newRow = copy(self.defaultNode)
             self.rows.insert(position, newRow)

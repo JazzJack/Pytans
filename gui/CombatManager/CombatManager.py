@@ -8,7 +8,28 @@ from fighter import Fighter
 from TableModel import GenericTableModel
 
 
-base, form = uic.loadUiType("prototyp1.ui")
+base, form = uic.loadUiType("CombatManager.ui")
+
+def writeModelToFile(model, filename):
+    with open(filename, "w") as f:
+        for row in range(model.rowCount()):
+            line = []
+            for col in range(model.columnCount()):
+                line.append(str(model.index( row, col, QtCore.QModelIndex() ).data( QtCore.Qt.DisplayRole ).toString()))
+            f.write(", ".join(line) + "\n")
+
+def loadCSVAndAppendToModel(filename, model, convert = ()):
+    with open(filename, "r") as f:
+        lines = f.readlines()
+        for l in lines:
+            i = model.rowCount()
+            model.insertRows(i, 1)
+            for col, val in enumerate(l.split(", ")):
+                if col in convert:
+                    val = convert[col](val)
+                index = model.index(i, col)
+                model.setData(index, val, role=QtCore.Qt.EditRole)
+
 
 class CombatManagerMain(base, form):
     def __init__(self, model, parent=None, sortCol = 0):
@@ -31,6 +52,11 @@ class CombatManagerMain(base, form):
         self.actionAdd.triggered.connect(self.on_add_action)
         self.actionRemove.triggered.connect(self.on_remove_action)
         self.actionNext.triggered.connect(self.on_next_action)
+        self.actionNew.triggered.connect(self.on_new_action)
+        self.actionOpen.triggered.connect(self.on_open_action)
+        self.actionSave.triggered.connect(self.on_save_action)
+        self.actionReset.triggered.connect(self.on_reset_action)
+
 
     def setData(self, row, attr, value):
         if attr in self.model.userAttributes:
@@ -89,23 +115,43 @@ class CombatManagerMain(base, form):
             self.statusbar.showMessage('Runde: %d'%self.round)
         self.selectionModel.clearSelection()
 
+    def on_new_action(self):
+        self.model.removeRows(0, self.model.rowCount())
+        self.round = 1
+        self.statusbar.showMessage('Runde: %d'%self.round)
+
+    def on_open_action(self):
+        filename = QtGui.QFileDialog.getOpenFileName(self, 'Open File', '.')
+        loadCSVAndAppendToModel(filename, self.model, {1: int, 2: int, 3: int, 4: int, 5: str2bool, 6:str2bool})
+
+    def on_save_action(self):
+        filename = QtGui.QFileDialog.getSaveFileName(self, "Save File", ".")
+        writeModelToFile(self.model, filename)
+
+    def on_reset_action(self):
+        # start new round
+        self.round = 1
+        self.statusbar.showMessage('Runde: %d'%self.round)
+        for i in range(self.model.rowCount()):
+            self.setData(i, "acted", False)
+            self.setData(i, "active", False)
+
+
+
+def str2bool(v):
+    return v.lower() in ("yes", "true", "t", "1")
 
 
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
-    f1 = Fighter("Hugo", 7, 11)
-    f2 = Fighter("Karl", 2, 15)
-    f3 = Fighter("David Hasselhoff", 10, 10)
-
     model = GenericTableModel(
-        data= [f1, f2, f3],
-        headers= ["               Name               ", "SN", "GE", "IN", "Aktionspunkte"],#, "Acted", "Active"],
+        data= [],
+        headers= ["               Name               ", "SN", "GE", "IN", "Aktionspunkte", "Acted", "Active"],
         attributes= ["name", "SN", "GE", "IN", "AP", "acted", "active"],
         userAttributes= ["priority", "active", "acted", "AP", "APGain"],
-        defaultNode= Fighter("", 0, 10))
+        defaultNode= Fighter(""))
     w = CombatManagerMain(model)
     w.show()
-
     sys.exit(app.exec_())
 

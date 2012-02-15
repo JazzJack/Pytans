@@ -3,7 +3,7 @@
 from __future__ import division, print_function, unicode_literals
 
 class Fighter(object):
-    def __init__(self, name, AP=0, SN=10, GE=10, IN=10):
+    def __init__(self, name, AP=0, SN=11, GE=11, IN=11):
         self.name = name
         self.AP = AP
         self.SN = SN
